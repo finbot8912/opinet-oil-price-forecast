@@ -1,0 +1,87 @@
+[
+  {
+    "code": "seoul",
+    "name": "서울특별시",
+    "short_name": "서울"
+  },
+  {
+    "code": "busan",
+    "name": "부산광역시",
+    "short_name": "부산"
+  },
+  {
+    "code": "daegu",
+    "name": "대구광역시",
+    "short_name": "대구"
+  },
+  {
+    "code": "incheon",
+    "name": "인천광역시",
+    "short_name": "인천"
+  },
+  {
+    "code": "gwangju",
+    "name": "광주광역시",
+    "short_name": "광주"
+  },
+  {
+    "code": "daejeon",
+    "name": "대전광역시",
+    "short_name": "대전"
+  },
+  {
+    "code": "ulsan",
+    "name": "울산광역시",
+    "short_name": "울산"
+  },
+  {
+    "code": "sejong",
+    "name": "세종특별자치시",
+    "short_name": "세종"
+  },
+  {
+    "code": "gyeonggi",
+    "name": "경기도",
+    "short_name": "경기"
+  },
+  {
+    "code": "gangwon",
+    "name": "강원특별자치도",
+    "short_name": "강원"
+  },
+  {
+    "code": "chungbuk",
+    "name": "충청북도",
+    "short_name": "충북"
+  },
+  {
+    "code": "chungnam",
+    "name": "충청남도",
+    "short_name": "충남"
+  },
+  {
+    "code": "jeonbuk",
+    "name": "전북특별자치도",
+    "short_name": "전북"
+  },
+  {
+    "code": "jeonnam",
+    "name": "전라남도",
+    "short_name": "전남"
+  },
+  {
+    "code": "gyeongbuk",
+    "name": "경상북도",
+    "short_name": "경북"
+  },
+  {
+    "code": "gyeongnam",
+    "name": "경상남도",
+    "short_name": "경남"
+  },
+  {
+    "code": "jeju",
+    "name": "제주특별자치도",
+    "short_name": "제주"
+  }
+]

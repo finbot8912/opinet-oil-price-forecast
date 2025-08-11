@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>유가 예측 시스템 - 데모</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+        }
+        .chart-area {
+            background: linear-gradient(to right, #f8fafc 0%, #e2e8f0 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <h1 class="text-xl font-bold text-gray-900">유가 예측 시스템</h1>
+                            <p class="text-sm text-gray-600">Oil Price Forecasting</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="refresh-btn flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                        데이터 갱신
+                    </button>
+                    <div class="hidden md:flex items-center text-sm text-gray-500">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span class="update-time">2024년 8월 9일 오후 7:22</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="mt-4">
+                <div class="flex space-x-8 border-b border-gray-200">
+                    <button class="py-2 px-1 border-b-2 border-blue-500 text-blue-600 font-medium text-sm">가격 전망</button>
+                    <button class="py-2 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 font-medium text-sm">과거 데이터</button>
+                    <button class="py-2 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 font-medium text-sm">분석 리포트</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <!-- 사이드바 -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4">설정</h2>
+                    
+                    <!-- 지역 선택 -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">지역 선택</label>
+                        <select class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                            <option value="seoul">서울특별시</option>
+                            <option value="busan">부산광역시</option>
+                            <option value="daegu">대구광역시</option>
+                            <option value="incheon">인천광역시</option>
+                            <option value="gwangju">광주광역시</option>
+                            <option value="daejeon">대전광역시</option>
+                            <option value="ulsan">울산광역시</option>
+                            <option value="sejong">세종특별자치시</option>
+                            <option value="gyeonggi">경기도</option>
+                            <option value="gangwon">강원특별자치도</option>
+                            <option value="chungbuk">충청북도</option>
+                            <option value="chungnam">충청남도</option>
+                            <option value="jeonbuk">전북특별자치도</option>
+                            <option value="jeonnam">전라남도</option>
+                            <option value="gyeongbuk">경상북도</option>
+                            <option value="gyeongnam">경상남도</option>
+                            <option value="jeju">제주특별자치도</option>
+                        </select>
+                        
+                        <div class="mt-3">
+                            <div class="text-xs font-medium text-gray-500 mb-2">주요 지역</div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button class="region-btn px-2 py-1 text-xs rounded-md bg-blue-100 text-blue-800 border border-blue-300" data-region="seoul">서울</button>
+                                <button class="region-btn px-2 py-1 text-xs rounded-md bg-gray-50 text-gray-700 hover:bg-gray-100" data-region="busan">부산</button>
+                                <button class="region-btn px-2 py-1 text-xs rounded-md bg-gray-50 text-gray-700 hover:bg-gray-100" data-region="daegu">대구</button>
+                                <button class="region-btn px-2 py-1 text-xs rounded-md bg-gray-50 text-gray-700 hover:bg-gray-100" data-region="incheon">인천</button>
+                                <button class="region-btn px-2 py-1 text-xs rounded-md bg-gray-50 text-gray-700 hover:bg-gray-100" data-region="gwangju">광주</button>
+                                <button class="region-btn px-2 py-1 text-xs rounded-md bg-gray-50 text-gray-700 hover:bg-gray-100" data-region="daejeon">대전</button>
+                                <button class="region-btn px-2 py-1 text-xs rounded-md bg-gray-50 text-gray-700 hover:bg-gray-100" data-region="ulsan">울산</button>
+                                <button class="region-btn px-2 py-1 text-xs rounded-md bg-gray-50 text-gray-700 hover:bg-gray-100" data-region="gyeonggi">경기</button>
+                                <button class="region-btn px-2 py-1 text-xs rounded-md bg-gray-50 text-gray-700 hover:bg-gray-100" data-region="jeju">제주</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 연료 선택 -->
+                    <div class="mt-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">연료 종류</label>
+                        <div class="space-y-2">
+                            <button class="fuel-btn w-full px-4 py-2 text-left rounded-md bg-blue-100 text-blue-800 border-blue-300" data-fuel="gasoline">🚗 보통휘발유</button>
+                            <button class="fuel-btn w-full px-4 py-2 text-left rounded-md bg-gray-50 text-gray-700 hover:bg-gray-100" data-fuel="diesel">🚛 자동차경유</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 메인 콘텐츠 -->
+            <div class="lg:col-span-3 space-y-6">
+                <!-- 대시보드 요약 -->
+                <div class="gradient-bg rounded-lg shadow-lg text-white p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <h2 class="text-lg font-semibold mb-3">시스템 현황</h2>
+                            <div class="space-y-2">
+                                <div class="flex justify-between">
+                                    <span class="text-blue-100">예측 지역:</span>
+                                    <span class="font-medium">17개</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-blue-100">예측 기간:</span>
+                                    <span class="font-medium">28일</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-blue-100">마지막 갱신:</span>
+                                    <span class="font-medium">8월 9일 19:22</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h2 class="text-lg font-semibold mb-3">전국 휘발유</h2>
+                            <div class="space-y-2">
+                                <div class="text-2xl font-bold">1,650원</div>
+                                <div class="text-sm font-medium text-green-200">4주 예상 변화: +2.3%</div>
+                                <div class="text-blue-100 text-sm">🔺 상승 전망</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h2 class="text-lg font-semibold mb-3">전국 자동차경유</h2>
+                            <div class="space-y-2">
+                                <div class="text-2xl font-bold">1,450원</div>
+                                <div class="text-sm font-medium text-red-200">4주 예상 변화: -1.8%</div>
+                                <div class="text-blue-100 text-sm">🔻 하락 전망</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 가격 요약 카드 (4주간 예측) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">현재 가격</p>
+                                <p class="text-2xl font-bold text-gray-900"><span class="current-price">1,733</span><span class="text-sm font-normal text-gray-500 ml-1">원</span></p>
+                            </div>
+                            <div class="p-3 bg-blue-100 rounded-full">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">1주 후</p>
+                                <p class="text-2xl font-bold text-gray-900"><span class="week1-price">1,741</span><span class="text-sm font-normal text-gray-500 ml-1">원</span></p>
+                                <p class="week1-change text-sm font-medium text-red-600">↗ +8원</p>
+                            </div>
+                            <div class="text-2xl">📊</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">2주 후</p>
+                                <p class="text-2xl font-bold text-gray-900"><span class="week2-price">1,751</span><span class="text-sm font-normal text-gray-500 ml-1">원</span></p>
+                                <p class="week2-change text-sm font-medium text-red-600">↗ +18원</p>
+                            </div>
+                            <div class="text-2xl">📈</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">3주 후</p>
+                                <p class="text-2xl font-bold text-gray-900"><span class="week3-price">1,762</span><span class="text-sm font-normal text-gray-500 ml-1">원</span></p>
+                                <p class="week3-change text-sm font-medium text-red-600">↗ +29원</p>
+                            </div>
+                            <div class="text-2xl">📊</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">4주 후</p>
+                                <p class="text-2xl font-bold text-gray-900"><span class="week4-price">1,773</span><span class="text-sm font-normal text-gray-500 ml-1">원</span></p>
+                                <p class="week4-change text-sm font-medium text-red-600">↗ +40원 (+2.3%)</p>
+                            </div>
+                            <div class="text-2xl">🎯</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 예측 차트 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-semibold text-gray-900">4주 가격 전망</h2>
+                        <div class="region-name text-sm text-gray-500">서울 • 보통휘발유</div>
+                    </div>
+                    
+                    <div class="chart-area rounded-lg p-4 bg-gray-50">
+                        <div class="chart-summary text-sm text-gray-600 mb-3">현재: 1,733원 → 4주 후: 1,773원 (+2.3%)</div>
+                        <svg id="forecast-chart" width="100%" height="240" viewBox="0 0 640 240" class="w-full bg-white rounded">
+                            <!-- 배경 그리드 -->
+                            <defs>
+                                <pattern id="grid" width="64" height="40" patternUnits="userSpaceOnUse">
+                                    <path d="M 64 0 L 0 0 0 40" fill="none" stroke="#f3f4f6" stroke-width="1"/>
+                                </pattern>
+                            </defs>
+                            <rect width="100%" height="100%" fill="url(#grid)" />
+                            
+                            <!-- Y축 레이블 -->
+                            <g id="y-axis-labels"></g>
+                            
+                            <!-- 주별 구분선 -->
+                            <g id="week-lines"></g>
+                            
+                            <!-- 현재 가격 기준선 -->
+                            <line id="current-price-line" x1="60" y1="120" x2="580" y2="120" stroke="#3b82f6" stroke-width="2" stroke-dasharray="8,4" opacity="0.5"/>
+                            
+                            <!-- 예측 선 그래프 -->
+                            <path id="forecast-line" fill="none" stroke="#ef4444" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            
+                            <!-- 현재 가격 포인트 -->
+                            <circle id="current-point" cx="60" cy="120" r="6" fill="#3b82f6" stroke="white" stroke-width="2"/>
+                            
+                            <!-- 주별 포인트 -->
+                            <g id="week-points"></g>
+                            
+                            <!-- X축 레이블 -->
+                            <g id="x-axis-labels">
+                                <text x="60" y="225" text-anchor="middle" font-size="12" fill="#6b7280">현재</text>
+                                <text x="200" y="225" text-anchor="middle" font-size="12" fill="#6b7280">1주</text>
+                                <text x="280" y="225" text-anchor="middle" font-size="12" fill="#6b7280">2주</text>
+                                <text x="380" y="225" text-anchor="middle" font-size="12" fill="#6b7280">3주</text>
+                                <text x="480" y="225" text-anchor="middle" font-size="12" fill="#6b7280">4주</text>
+                            </g>
+                        </svg>
+                        
+                        <!-- 범례 -->
+                        <div class="mt-4 flex items-center justify-center space-x-6 text-sm">
+                            <div class="flex items-center">
+                                <div class="w-4 h-1 bg-blue-500 mr-2"></div>
+                                <span class="text-gray-600">현재 가격</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-4 h-1 bg-red-500 mr-2"></div>
+                                <span class="text-gray-600">예측 가격</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 전국 평균 비교 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4">전국 평균 대비 비교</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h3 class="font-medium text-gray-900 mb-2">보통휘발유</h3>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">전국 평균:</span>
+                                    <span class="font-medium">1,650원</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">지역 가격:</span>
+                                    <span class="regional-price font-medium">1,733원</span>
+                                </div>
+                                <div class="flex justify-between border-t pt-2">
+                                    <span class="text-gray-600">차이:</span>
+                                    <span class="price-difference font-medium text-red-600">+83원 (+5.0%)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h3 class="font-medium text-gray-900 mb-2">자동차경유</h3>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">전국 평균:</span>
+                                    <span class="font-medium">1,450원</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">지역 가격:</span>
+                                    <span class="font-medium">1,508원</span>
+                                </div>
+                                <div class="flex justify-between border-t pt-2">
+                                    <span class="text-gray-600">차이:</span>
+                                    <span class="font-medium text-red-600">+58원 (+4.0%)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="text-center text-gray-600 text-sm">
+                <p>유가 예측 시스템 • 한국석유공사 오피넷 데이터 기반</p>
+                <p class="mt-1">예측 결과는 참고용이며, 실제 가격과 다를 수 있습니다.</p>
+                <p class="mt-4 text-xs text-gray-500">
+                    💻 기술 스택: React + TypeScript + FastAPI + Python ML<br>
+                    📊 예측 모델: 시계열 분석 + 다중요인 회귀 + 계절성 조정<br>
+                    🔄 마지막 갱신: 2024년 8월 9일 19시 22분
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 현재 상태 데이터 (오피넷 표준 17개 시도)
+        let currentData = {
+            region: 'seoul',
+            fuelType: 'gasoline',
+            regions: {
+                seoul: { name: '서울특별시', short_name: '서울', gasoline: 1733, diesel: 1508 },
+                busan: { name: '부산광역시', short_name: '부산', gasoline: 1698, diesel: 1472 },
+                daegu: { name: '대구광역시', short_name: '대구', gasoline: 1687, diesel: 1465 },
+                incheon: { name: '인천광역시', short_name: '인천', gasoline: 1721, diesel: 1495 },
+                gwangju: { name: '광주광역시', short_name: '광주', gasoline: 1679, diesel: 1453 },
+                daejeon: { name: '대전광역시', short_name: '대전', gasoline: 1692, diesel: 1467 },
+                ulsan: { name: '울산광역시', short_name: '울산', gasoline: 1705, diesel: 1480 },
+                sejong: { name: '세종특별자치시', short_name: '세종', gasoline: 1688, diesel: 1462 },
+                gyeonggi: { name: '경기도', short_name: '경기', gasoline: 1728, diesel: 1503 },
+                gangwon: { name: '강원특별자치도', short_name: '강원', gasoline: 1695, diesel: 1470 },
+                chungbuk: { name: '충청북도', short_name: '충북', gasoline: 1683, diesel: 1458 },
+                chungnam: { name: '충청남도', short_name: '충남', gasoline: 1681, diesel: 1456 },
+                jeonbuk: { name: '전북특별자치도', short_name: '전북', gasoline: 1675, diesel: 1450 },
+                jeonnam: { name: '전라남도', short_name: '전남', gasoline: 1673, diesel: 1448 },
+                gyeongbuk: { name: '경상북도', short_name: '경북', gasoline: 1685, diesel: 1460 },
+                gyeongnam: { name: '경상남도', short_name: '경남', gasoline: 1690, diesel: 1465 },
+                jeju: { name: '제주특별자치도', short_name: '제주', gasoline: 1758, diesel: 1533 }
+            },
+            forecasts: {
+                // 초기 데이터는 DOMContentLoaded에서 완전히 재생성됨
+                gasoline: { current: 1733, week1: 1741, week2: 1751, week3: 1762, week4: 1773 },
+                diesel: { current: 1508, week1: 1503, week2: 1498, week3: 1491, week4: 1485 }
+            },
+            national: {
+                gasoline: { price: 1650, change: 2.3 },  // 보통휘발유 전국 평균
+                diesel: { price: 1450, change: -1.8 }    // 자동차경유 전국 평균 (휘발유 대비 200원 저렴)
+            }
+        };
+
+        // 랜덤 변동 생성 함수
+        function generateRandomChange(basePrice, volatility = 0.03) {
+            const change = (Math.random() - 0.5) * 2 * volatility;
+            return Math.round(basePrice * (1 + change));
+        }
+
+        // 가격 업데이트 함수
+        function updatePrices() {
+            const region = currentData.regions[currentData.region];
+            const fuelType = currentData.fuelType;
+            
+            // 현재 지역의 현재 가격
+            const currentPrice = region[fuelType];
+            
+            // 새로운 예측가 생성 (지역별 변동성 적용)
+            const volatilityMultiplier = getRegionalVolatility(currentData.region);
+            const newForecast = {
+                current: currentPrice,
+                week1: generateRandomChange(currentPrice, 0.008 * volatilityMultiplier),
+                week2: generateRandomChange(currentPrice, 0.015 * volatilityMultiplier),
+                week4: generateRandomChange(currentPrice, 0.025 * volatilityMultiplier)
+            };
+            
+            currentData.forecasts[fuelType] = newForecast;
+            
+            // UI 업데이트
+            updatePriceDisplays();
+            showUpdateMessage();
+        }
+
+        // 지역별 변동성 계수
+        function getRegionalVolatility(region) {
+            const volatilityMap = {
+                seoul: 1.2, busan: 1.0, daegu: 0.9, incheon: 1.1,
+                gwangju: 0.8, daejeon: 0.9, ulsan: 1.0, sejong: 0.8,
+                gyeonggi: 1.1, gangwon: 0.9, chungbuk: 0.8, chungnam: 0.9,
+                jeonbuk: 0.7, jeonnam: 0.7, gyeongbuk: 0.8, gyeongnam: 0.9,
+                jeju: 1.5  // 제주는 변동성이 높음
+            };
+            return volatilityMap[region] || 1.0;
+        }
+
+        // 지역 변경 함수 (강화된 버전)
+        function changeRegion(newRegion) {
+            console.log('🌍 지역 변경 시작:', { from: currentData.region, to: newRegion });
+            
+            currentData.region = newRegion;
+            
+            // 지역 버튼 상태 업데이트
+            document.querySelectorAll('.region-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-100', 'text-blue-800', 'border-blue-300');
+                btn.classList.add('bg-gray-50', 'text-gray-700');
+            });
+            
+            const selectedBtn = document.querySelector(`[data-region="${newRegion}"]`);
+            if (selectedBtn) {
+                selectedBtn.classList.remove('bg-gray-50', 'text-gray-700');
+                selectedBtn.classList.add('bg-blue-100', 'text-blue-800', 'border-blue-300');
+            }
+            
+            // 셀렉트 박스 업데이트
+            const selectEl = document.querySelector('select');
+            if (selectEl) {
+                selectEl.value = newRegion;
+            }
+            
+            // 지역 변경시 휘발유와 자동차경유 모든 예측 데이터 새로 생성
+            const region = currentData.regions[newRegion];
+            const volatilityMultiplier = getRegionalVolatility(newRegion);
+            
+            console.log('📊 새로운 지역 데이터 생성:', {
+                region: region,
+                volatility: volatilityMultiplier
+            });
+            
+            // 휘발유 데이터 업데이트
+            const gasolinePrice = region.gasoline;
+            const newGasolineData = {
+                current: gasolinePrice,
+                week1: generateRandomChange(gasolinePrice, 0.008 * volatilityMultiplier),
+                week2: generateRandomChange(gasolinePrice, 0.015 * volatilityMultiplier),
+                week3: generateRandomChange(gasolinePrice, 0.020 * volatilityMultiplier),
+                week4: generateRandomChange(gasolinePrice, 0.025 * volatilityMultiplier)
+            };
+            currentData.forecasts.gasoline = newGasolineData;
+            
+            // 자동차경유 데이터 업데이트
+            const dieselPrice = region.diesel;
+            const newDieselData = {
+                current: dieselPrice,
+                week1: generateRandomChange(dieselPrice, 0.008 * volatilityMultiplier),
+                week2: generateRandomChange(dieselPrice, 0.015 * volatilityMultiplier),
+                week3: generateRandomChange(dieselPrice, 0.020 * volatilityMultiplier),
+                week4: generateRandomChange(dieselPrice, 0.025 * volatilityMultiplier)
+            };
+            currentData.forecasts.diesel = newDieselData;
+            
+            // 디버깅: 업데이트된 데이터 확인
+            console.log('✅ 지역 변경 후 업데이트된 데이터:', {
+                region: newRegion,
+                currentFuelType: currentData.fuelType,
+                gasolineData: newGasolineData,
+                dieselData: newDieselData,
+                selectedForecast: currentData.forecasts[currentData.fuelType],
+                hasAllData: !!(newGasolineData.week1 && newGasolineData.week2 && newGasolineData.week3 && newGasolineData.week4)
+            });
+            
+            // 즉시 UI 업데이트
+            console.log('🔄 UI 업데이트 시작');
+            setTimeout(() => {
+                updatePriceDisplays();
+                showRegionMessage(currentData.regions[newRegion].short_name || currentData.regions[newRegion].name);
+            }, 100);
+        }
+
+        // 연료 타입 변경 함수 (강화된 버전)
+        function changeFuelType(newFuelType) {
+            console.log('⛽ 연료 타입 변경 시작:', { from: currentData.fuelType, to: newFuelType });
+            
+            currentData.fuelType = newFuelType;
+            
+            // 연료 버튼 상태 업데이트
+            document.querySelectorAll('.fuel-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-100', 'text-blue-800', 'border-blue-300');
+                btn.classList.add('bg-gray-50', 'text-gray-700');
+            });
+            
+            const selectedBtn = document.querySelector(`[data-fuel="${newFuelType}"]`);
+            if (selectedBtn) {
+                selectedBtn.classList.remove('bg-gray-50', 'text-gray-700');
+                selectedBtn.classList.add('bg-blue-100', 'text-blue-800', 'border-blue-300');
+            }
+            
+            // 연료 타입 변경시 해당 연료의 새로운 예측 데이터 생성 (개선)
+            const region = currentData.regions[currentData.region];
+            const currentPrice = region[newFuelType];
+            const volatilityMultiplier = getRegionalVolatility(currentData.region);
+            
+            console.log('📊 새로운 연료 데이터 생성:', {
+                fuelType: newFuelType,
+                currentPrice: currentPrice,
+                volatility: volatilityMultiplier
+            });
+            
+            // 선택된 연료 타입의 완전한 예측 데이터 생성
+            const newForecastData = {
+                current: currentPrice,
+                week1: generateRandomChange(currentPrice, 0.008 * volatilityMultiplier),
+                week2: generateRandomChange(currentPrice, 0.015 * volatilityMultiplier),
+                week3: generateRandomChange(currentPrice, 0.020 * volatilityMultiplier),
+                week4: generateRandomChange(currentPrice, 0.025 * volatilityMultiplier)
+            };
+            
+            currentData.forecasts[newFuelType] = newForecastData;
+            
+            console.log('✅ 연료 타입 변경 후 새로 생성된 예측 데이터:', {
+                fuelType: newFuelType,
+                data: newForecastData,
+                hasAllWeeks: !!(newForecastData.current && newForecastData.week1 && newForecastData.week2 && newForecastData.week3 && newForecastData.week4),
+                currentForecast: currentData.forecasts[newFuelType]
+            });
+            
+            // 즉시 UI 업데이트
+            console.log('🔄 UI 업데이트 시작');
+            setTimeout(() => {
+                updatePriceDisplays();
+                showFuelMessage(newFuelType === 'gasoline' ? '보통휘발유' : '자동차경유');
+            }, 100);
+        }
+
+        // 가격 표시 업데이트 (완전 개선 + 강제 업데이트)
+        function updatePriceDisplays() {
+            const region = currentData.regions[currentData.region];
+            const fuelType = currentData.fuelType;
+            const forecast = currentData.forecasts[fuelType];
+            const national = currentData.national[fuelType];
+            
+            // 디버깅 정보 (상세)
+            console.log('=== 가격 표시 업데이트 시작 ===');
+            console.log('업데이트 데이터:', {
+                region: currentData.region,
+                fuelType: fuelType,
+                forecast: forecast,
+                hasAllWeeks: forecast && forecast.current && forecast.week1 && forecast.week2 && forecast.week3 && forecast.week4,
+                allForecasts: currentData.forecasts
+            });
+            
+            // forecast 데이터가 완전한지 확인
+            if (!forecast || !forecast.current || !forecast.week1 || !forecast.week2 || !forecast.week3 || !forecast.week4) {
+                console.error('❌ 예측 데이터가 완전하지 않습니다:', {
+                    fuelType: fuelType,
+                    forecast: forecast,
+                    missing: {
+                        current: !forecast?.current,
+                        week1: !forecast?.week1,
+                        week2: !forecast?.week2,
+                        week3: !forecast?.week3,
+                        week4: !forecast?.week4
+                    }
+                });
+                return;
+            }
+            
+            // DOM 요소들 미리 확인
+            const allElements = {
+                current: document.querySelector('.current-price'),
+                week1: document.querySelector('.week1-price'),
+                week2: document.querySelector('.week2-price'),
+                week3: document.querySelector('.week3-price'),
+                week4: document.querySelector('.week4-price'),
+                week1Change: document.querySelector('.week1-change'),
+                week2Change: document.querySelector('.week2-change'),
+                week3Change: document.querySelector('.week3-change'),
+                week4Change: document.querySelector('.week4-change')
+            };
+            
+            console.log('DOM 요소 확인:', {
+                current: !!allElements.current,
+                week1: !!allElements.week1,
+                week2: !!allElements.week2,
+                week3: !!allElements.week3,
+                week4: !!allElements.week4,
+                changes: {
+                    week1: !!allElements.week1Change,
+                    week2: !!allElements.week2Change,
+                    week3: !!allElements.week3Change,
+                    week4: !!allElements.week4Change
+                }
+            });
+            
+            // 🚀 강제 업데이트 방식 - 모든 주간 가격 일괄 업데이트
+            console.log('📊 전체 가격 데이터 일괄 업데이트 시작');
+            
+            // 모든 가격 요소들을 배열로 정의
+            const priceUpdates = [
+                { 
+                    selector: '.current-price', 
+                    value: forecast.current,
+                    label: '현재'
+                },
+                { 
+                    selector: '.week1-price', 
+                    changeSelector: '.week1-change',
+                    value: forecast.week1,
+                    label: '1주'
+                },
+                { 
+                    selector: '.week2-price', 
+                    changeSelector: '.week2-change',
+                    value: forecast.week2,
+                    label: '2주'
+                },
+                { 
+                    selector: '.week3-price', 
+                    changeSelector: '.week3-change',
+                    value: forecast.week3,
+                    label: '3주'
+                },
+                { 
+                    selector: '.week4-price', 
+                    changeSelector: '.week4-change',
+                    value: forecast.week4,
+                    label: '4주',
+                    showPercent: true
+                }
+            ];
+            
+            // 각 요소를 순차적으로 업데이트
+            priceUpdates.forEach((update, index) => {
+                const priceEl = document.querySelector(update.selector);
+                console.log(`${update.label} 가격 업데이트:`, {
+                    selector: update.selector,
+                    found: !!priceEl,
+                    value: update.value,
+                    formatted: update.value?.toLocaleString()
+                });
+                
+                if (priceEl && update.value) {
+                    priceEl.textContent = update.value.toLocaleString();
+                    console.log(`✅ ${update.label} 가격 업데이트 성공:`, priceEl.textContent);
+                    
+                    // 변화량 업데이트 (현재가 제외)
+                    if (update.changeSelector && index > 0) {
+                        const changeEl = document.querySelector(update.changeSelector);
+                        if (changeEl) {
+                            const change = update.value - forecast.current;
+                            const changePercent = ((change / forecast.current) * 100);
+                            
+                            let changeText = `${change >= 0 ? '↗' : '↘'} ${change >= 0 ? '+' : ''}${change}원`;
+                            if (update.showPercent) {
+                                changeText += ` (${changePercent >= 0 ? '+' : ''}${changePercent.toFixed(1)}%)`;
+                            }
+                            
+                            changeEl.textContent = changeText;
+                            changeEl.className = `text-sm font-medium ${change >= 0 ? 'text-red-600' : 'text-green-600'}`;
+                            console.log(`✅ ${update.label} 변화량 업데이트:`, changeText);
+                        } else {
+                            console.error(`❌ ${update.label} 변화량 요소를 찾을 수 없음:`, update.changeSelector);
+                        }
+                    }
+                } else {
+                    console.error(`❌ ${update.label} 가격 요소를 찾을 수 없음:`, {
+                        selector: update.selector,
+                        value: update.value,
+                        element: !!priceEl
+                    });
+                }
+            });
+            
+            // 지역 정보 업데이트 (안전성 검사 추가)
+            const regionNameEl = document.querySelector('.region-name');
+            if (regionNameEl) {
+                regionNameEl.textContent = `${currentData.regions[currentData.region].name} • ${fuelType === 'gasoline' ? '보통휘발유' : '자동차경유'}`;  // 이미 올바름
+            }
+            
+            // 차트 요약 업데이트 (안전성 검사 추가)
+            const chartSummaryEl = document.querySelector('.chart-summary');
+            if (chartSummaryEl) {
+                const week4Change = forecast.week4 - forecast.current;
+                const week4Percent = ((week4Change / forecast.current) * 100);
+                chartSummaryEl.textContent = `현재: ${forecast.current.toLocaleString()}원 → 4주 후: ${forecast.week4.toLocaleString()}원 (${week4Percent >= 0 ? '+' : ''}${week4Percent.toFixed(1)}%)`;
+            }
+            
+            // 전국 평균 대비 업데이트
+            const nationalPrice = national.price;
+            const regionalPrice = forecast.current;
+            const difference = regionalPrice - nationalPrice;
+            const diffPercent = ((difference / nationalPrice) * 100);
+            
+            document.querySelector('.regional-price').textContent = `${regionalPrice.toLocaleString()}원`;
+            document.querySelector('.price-difference').textContent = `${difference >= 0 ? '+' : ''}${difference}원 (${diffPercent >= 0 ? '+' : ''}${diffPercent.toFixed(1)}%)`;
+            document.querySelector('.price-difference').className = `font-medium ${difference >= 0 ? 'text-red-600' : 'text-green-600'}`;
+            
+            // 시간 업데이트
+            const now = new Date();
+            document.querySelector('.update-time').textContent = now.toLocaleString('ko-KR', {
+                year: 'numeric', month: 'short', day: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            });
+            
+            // 차트 업데이트
+            updateChart();
+            
+            // 전체 업데이트 완료 확인
+            console.log('=== 가격 표시 업데이트 완료 ===');
+            console.log('최종 DOM 상태:', {
+                currentPrice: document.querySelector('.current-price')?.textContent,
+                week1Price: document.querySelector('.week1-price')?.textContent,
+                week2Price: document.querySelector('.week2-price')?.textContent,
+                week3Price: document.querySelector('.week3-price')?.textContent,
+                week4Price: document.querySelector('.week4-price')?.textContent
+            });
+        }
+
+        // 차트 업데이트 함수 (완전 개선)
+        function updateChart() {
+            const forecast = currentData.forecasts[currentData.fuelType];
+            const regionName = currentData.regions[currentData.region].short_name || currentData.regions[currentData.region].name;
+            
+            // 안전성 검사
+            if (!forecast || !forecast.current || !forecast.week1 || !forecast.week2 || !forecast.week3 || !forecast.week4) {
+                console.error('차트 업데이트: 예측 데이터가 완전하지 않습니다', forecast);
+                return;
+            }
+            
+            // 디버깅 정보
+            console.log('차트 업데이트:', {
+                region: currentData.region,
+                fuelType: currentData.fuelType,
+                forecast: forecast,
+                regionName: regionName
+            });
+            
+            // 차트 데이터 포인트 (3주 추가)
+            const chartData = [
+                { x: 60, y: 0, price: forecast.current, label: '현재' },
+                { x: 200, y: 0, price: forecast.week1, label: '1주' },
+                { x: 280, y: 0, price: forecast.week2, label: '2주' },
+                { x: 380, y: 0, price: forecast.week3, label: '3주' },
+                { x: 480, y: 0, price: forecast.week4, label: '4주' }
+            ];
+            
+            // 가격 범위 계산 (개선)
+            const prices = chartData.map(d => d.price);
+            const minPrice = Math.min(...prices);
+            const maxPrice = Math.max(...prices);
+            const priceRange = maxPrice - minPrice || 50; // 최소 범위 50원
+            const padding = Math.max(priceRange * 0.2, 20); // 최소 패딩 20원
+            
+            // Y 좌표 계산 (SVG는 위에서부터 시작하므로 반전)
+            chartData.forEach(d => {
+                const normalizedPrice = (d.price - (minPrice - padding)) / (priceRange + 2 * padding);
+                d.y = 200 - (normalizedPrice * 160); // 200px에서 40px까지 사용 (수정)
+            });
+            
+            // SVG 요소들 업데이트
+            const svg = document.getElementById('forecast-chart');
+            if (!svg) {
+                console.error('차트 SVG 요소를 찾을 수 없습니다');
+                return;
+            }
+            
+            // Y축 레이블 업데이트
+            const yAxisLabels = document.getElementById('y-axis-labels');
+            if (yAxisLabels) {
+                yAxisLabels.innerHTML = '';
+                for (let i = 0; i <= 4; i++) {
+                    const price = minPrice - padding + ((priceRange + 2 * padding) * i / 4);
+                    const y = 200 - (i * 40); // 40px 간격으로 수정
+                    yAxisLabels.innerHTML += `
+                        <line x1="55" y1="${y}" x2="590" y2="${y}" stroke="#e5e7eb" stroke-width="1" opacity="0.5"/>
+                        <text x="50" y="${y + 4}" text-anchor="end" font-size="12" fill="#6b7280">
+                            ${Math.round(price).toLocaleString()}
+                        </text>
+                    `;
+                }
+            } else {
+                console.error('Y축 레이블 요소를 찾을 수 없습니다');
+            }
+            
+            // 주별 구분선 업데이트
+            const weekLines = document.getElementById('week-lines');
+            if (weekLines) {
+                weekLines.innerHTML = '';
+                [200, 280, 380, 480].forEach(x => {
+                    weekLines.innerHTML += `
+                        <line x1="${x}" y1="40" x2="${x}" y2="200" stroke="#d1d5db" stroke-width="1" stroke-dasharray="4,4" opacity="0.7"/>
+                    `;
+                });
+            }
+            
+            // 현재 가격 기준선 업데이트
+            const currentPriceLine = document.getElementById('current-price-line');
+            if (currentPriceLine) {
+                currentPriceLine.setAttribute('y1', chartData[0].y);
+                currentPriceLine.setAttribute('y2', chartData[0].y);
+            }
+            
+            // 예측 선 그래프 업데이트
+            const forecastLine = document.getElementById('forecast-line');
+            if (forecastLine) {
+                const pathData = `M ${chartData[0].x} ${chartData[0].y} ` +
+                                `L ${chartData[1].x} ${chartData[1].y} ` +
+                                `L ${chartData[2].x} ${chartData[2].y} ` +
+                                `L ${chartData[3].x} ${chartData[3].y} ` +
+                                `L ${chartData[4].x} ${chartData[4].y}`;
+                forecastLine.setAttribute('d', pathData);
+                console.log('차트 경로 업데이트:', pathData);
+            } else {
+                console.error('예측 라인 요소를 찾을 수 없습니다');
+            }
+            
+            // 현재 가격 포인트 업데이트
+            const currentPoint = document.getElementById('current-point');
+            if (currentPoint) {
+                currentPoint.setAttribute('cx', chartData[0].x);
+                currentPoint.setAttribute('cy', chartData[0].y);
+            }
+            
+            // 주별 포인트 업데이트
+            const weekPoints = document.getElementById('week-points');
+            if (weekPoints) {
+                weekPoints.innerHTML = '';
+                chartData.slice(1).forEach(point => {
+                    weekPoints.innerHTML += `
+                        <circle cx="${point.x}" cy="${point.y}" r="5" fill="#ef4444" stroke="white" stroke-width="2"/>
+                    `;
+                });
+            }
+            
+            // 차트 요약 정보 업데이트
+            const chartSummary = `${regionName} • ${currentData.fuelType === 'gasoline' ? '보통휘발유' : '자동차경유'}`;
+            const regionNameEl = document.querySelector('.region-name');
+            if (regionNameEl) {
+                regionNameEl.textContent = chartSummary;
+            }
+            
+            // 차트 하단 요약 정보 업데이트
+            const chartSummaryEl = document.querySelector('.chart-summary');
+            if (chartSummaryEl) {
+                const change = forecast.week4 - forecast.current;
+                const changePercent = ((change / forecast.current) * 100);
+                chartSummaryEl.textContent = `현재: ${forecast.current.toLocaleString()}원 → 4주 후: ${forecast.week4.toLocaleString()}원 (${changePercent >= 0 ? '+' : ''}${changePercent.toFixed(1)}%)`;
+            }
+        }
+
+        // 메시지 표시 함수들
+        function showUpdateMessage() {
+            showMessage('🔄 데이터가 갱신되었습니다!', 'bg-blue-500');
+        }
+
+        function showRegionMessage(regionName) {
+            showMessage(`📍 ${regionName} 지역으로 변경되었습니다!`, 'bg-green-500');
+        }
+
+        function showFuelMessage(fuelName) {
+            showMessage(`⛽ ${fuelName}로 변경되었습니다!`, 'bg-purple-500');
+        }
+
+        function showMessage(text, bgClass) {
+            const message = document.createElement('div');
+            message.className = `fixed top-4 right-4 ${bgClass} text-white px-4 py-2 rounded-lg shadow-lg z-50 transition-all transform translate-x-full`;
+            message.innerHTML = text;
+            document.body.appendChild(message);
+            
+            // 애니메이션 효과
+            setTimeout(() => {
+                message.classList.remove('translate-x-full');
+            }, 100);
+            
+            setTimeout(() => {
+                message.classList.add('translate-x-full');
+                setTimeout(() => message.remove(), 300);
+            }, 2500);
+        }
+
+        // 이벤트 리스너 설정
+        document.addEventListener('DOMContentLoaded', function() {
+            // 데이터 갱신 버튼
+            document.querySelector('.refresh-btn').addEventListener('click', function() {
+                this.classList.add('animate-spin');
+                setTimeout(() => {
+                    this.classList.remove('animate-spin');
+                    updatePrices();
+                }, 1000);
+            });
+
+            // 지역 선택 버튼들
+            document.querySelectorAll('.region-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const region = this.getAttribute('data-region');
+                    changeRegion(region);
+                });
+            });
+
+            // 연료 타입 버튼들
+            document.querySelectorAll('.fuel-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const fuelType = this.getAttribute('data-fuel');
+                    changeFuelType(fuelType);
+                });
+            });
+
+            // 셀렉트 박스
+            document.querySelector('select').addEventListener('change', function() {
+                changeRegion(this.value);
+            });
+
+            // 초기 예측 데이터 생성 (휘발유와 자동차경유 모두) - 개선된 버전
+            const initialRegion = currentData.regions[currentData.region];
+            const initialVolatility = getRegionalVolatility(currentData.region);
+            
+            // 디버깅: 초기 데이터 생성 시작
+            console.log('초기 데이터 생성:', {
+                region: currentData.region,
+                initialRegion: initialRegion,
+                volatility: initialVolatility
+            });
+            
+            // 휘발유 초기 데이터 생성
+            const gasolinePrice = initialRegion.gasoline;
+            const gasolineForecasts = {
+                current: gasolinePrice,
+                week1: generateRandomChange(gasolinePrice, 0.008 * initialVolatility),
+                week2: generateRandomChange(gasolinePrice, 0.015 * initialVolatility),
+                week3: generateRandomChange(gasolinePrice, 0.020 * initialVolatility),
+                week4: generateRandomChange(gasolinePrice, 0.025 * initialVolatility)
+            };
+            currentData.forecasts.gasoline = gasolineForecasts;
+            
+            // 자동차경유 초기 데이터 생성
+            const dieselPrice = initialRegion.diesel;
+            const dieselForecasts = {
+                current: dieselPrice,
+                week1: generateRandomChange(dieselPrice, 0.008 * initialVolatility),
+                week2: generateRandomChange(dieselPrice, 0.015 * initialVolatility),
+                week3: generateRandomChange(dieselPrice, 0.020 * initialVolatility),
+                week4: generateRandomChange(dieselPrice, 0.025 * initialVolatility)
+            };
+            currentData.forecasts.diesel = dieselForecasts;
+            
+            // 디버깅: 생성된 예측 데이터 출력
+            console.log('생성된 예측 데이터:', {
+                gasoline: gasolineForecasts,
+                diesel: dieselForecasts
+            });
+            
+            // 초기 표시 업데이트
+            updatePriceDisplays();
+
+            // 성공 메시지 표시
+            setTimeout(() => {
+                showMessage('✅ 유가 예측 시스템 실행 완료!', 'bg-green-500');
+            }, 1000);
+            
+            // 테스트 함수 추가 (개발용)
+            window.testRegionChange = function() {
+                console.log('🧪 지역 변경 테스트 시작');
+                changeRegion('busan');
+                setTimeout(() => {
+                    console.log('🧪 연료 타입 변경 테스트 시작');
+                    changeFuelType('diesel');
+                }, 2000);
+            };
+            
+            // 개발자 도구에서 사용할 수 있는 테스트 함수들
+            console.log('🔧 테스트 함수 준비 완료:');
+            console.log('- testRegionChange(): 지역 변경 테스트');
+            console.log('- currentData: 현재 데이터 확인');
+        });
+    </script>
+</body>
+</html>

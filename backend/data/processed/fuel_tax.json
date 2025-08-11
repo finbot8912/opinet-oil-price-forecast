@@ -1,0 +1,201 @@
+{
+  "metadata": {
+    "source": "유류세",
+    "components": [
+      "개별소비세",
+      "교통에너지환경세",
+      "교육세",
+      "주행세"
+    ],
+    "processed_at": "2025-08-09T18:46:38.753961"
+  },
+  "data": [
+    {
+      "date": "2009-1119일-01",
+      "gasoline": {
+        "individual_consumption": 0.0,
+        "transportation_energy": 529.0,
+        "education": 79.35,
+        "driving": 137.54,
+        "total": 745.89
+      },
+      "diesel": {
+        "individual_consumption": 0.0,
+        "transportation_energy": 367.5,
+        "education": 55.13,
+        "driving": 95.55,
+        "total": 518.18
+      }
+    },
+    {
+      "date": "2018-1106일-01",
+      "gasoline": {
+        "individual_consumption": 0.0,
+        "transportation_energy": 450.0,
+        "education": 67.5,
+        "driving": 117.0,
+        "total": 634.5
+      },
+      "diesel": {
+        "individual_consumption": 0.0,
+        "transportation_energy": 375.0,
+        "education": 56.25,
+        "driving": 97.5,
+        "total": 528.75
+      }
+    },
+    {
+      "date": "2019-0507일-01",
+      "gasoline": {
+        "individual_consumption": 0.0,
+        "transportation_energy": 492.0,
+        "education": 73.8,
+        "driving": 127.92,
+        "total": 693.72
+      },
+      "diesel": {
+        "individual_consumption": 0.0,
+        "transportation_energy": 319.0,
+        "education": 47.85,
+        "driving": 82.94,
+        "total": 449.79
+      }
+    },
+    {
+      "date": "2019-0901일-01",
+      "gasoline": {
+        "individual_consumption": 0.0,
+        "transportation_energy": 529.0,
+        "education": 79.35,
+        "driving": 137.54,
+        "total": 745.89
+      },
+      "diesel": {
+        "individual_consumption": 0.0,
+        "transportation_energy": 349.0,
+        "education": 52.35,
+        "driving": 90.74,
+        "total": 492.09
+      }
+    },
+    {
+      "date": "2021-1112일-01",
+      "gasoline": {
+        "individual_consumption": 0.0,
+        "transportation_energy": 423.0,
+        "education": 63.45,
+        "driving": 109.98,
+        "total": 596.43
+      },
+      "diesel": {
+        "individual_consumption": 0.0,
+        "transportation_energy": 375.0,
+        "education": 56.25,
+        "driving": 97.5,
+        "total": 528.75
+      }
+    },
+    {
+      "date": "2022-0501일-01",
+      "gasoline": {
+        "individual_consumption": 0.0,
+        "transportation_energy": 370.0,
+        "education": 55.5,
+        "driving": 96.2,
+        "total": 521.7
+      },
+      "diesel": {
+        "individual_consumption": 0.0,
+        "transportation_energy": 300.0,
+        "education": 45.0,
+        "driving": 78.0,
+        "total": 423.0
+      }
+    },
+    {
+      "date": "2022-0701일-01",
+      "gasoline": {
+        "individual_consumption": 0.0,
+        "transportation_energy": 332.5,
+        "education": 49.88,
+        "driving": 86.45,
+        "total": 468.83
+      },
+      "diesel": {
+        "individual_consumption": 0.0,
+        "transportation_energy": 263.0,
+        "education": 39.45,
+        "driving": 68.38,
+        "total": 370.83
+      }
+    },
+    {
+      "date": "2023-0101일-01",
+      "gasoline": {
+        "individual_consumption": 0.0,
+        "transportation_energy": 396.7,
+        "education": 59.51,
+        "driving": 103.14,
+        "total": 559.35
+      },
+      "diesel": {
+        "individual_consumption": 0.0,
+        "transportation_energy": 238.0,
+        "education": 35.7,
+        "driving": 61.88,
+        "total": 335.58
+      }
+    },
+    {
+      "date": "2024-0701일-01",
+      "gasoline": {
+        "individual_consumption": 0.0,
+        "transportation_energy": 423.0,
+        "education": 63.45,
+        "driving": 109.98,
+        "total": 596.43
+      },
+      "diesel": {
+        "individual_consumption": 0.0,
+        "transportation_energy": 263.0,
+        "education": 39.45,
+        "driving": 68.38,
+        "total": 370.83
+      }
+    },
+    {
+      "date": "2024-1101일-01",
+      "gasoline": {
+        "individual_consumption": 0.0,
+        "transportation_energy": 450.0,
+        "education": 67.5,
+        "driving": 117.0,
+        "total": 634.5
+      },
+      "diesel": {
+        "individual_consumption": 0.0,
+        "transportation_energy": 289.0,
+        "education": 43.35,
+        "driving": 75.14,
+        "total": 407.49
+      }
+    },
+    {
+      "date": "2025-0501일-01",
+      "gasoline": {
+        "individual_consumption": 0.0,
+        "transportation_energy": 476.0,
+        "education": 71.4,
+        "driving": 123.76,
+        "total": 671.16
+      },
+      "diesel": {
+        "individual_consumption": 0.0,
+        "transportation_energy": 319.0,
+        "education": 47.85,
+        "driving": 82.94,
+        "total": 449.79
+      }
+    }
+  ]
+}

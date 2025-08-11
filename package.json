@@ -1,0 +1,52 @@
+{
+  "name": "opinet-oil-price-forecast",
+  "version": "3.0.0",
+  "description": "한국석유공사 오피넷 기반 실시간 유가 예측 및 GPS 기반 최저가 주유소 찾기 시스템",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "live-server --port=8000",
+    "build": "echo 'No build process needed for vanilla HTML/JS/CSS'",
+    "test": "echo 'No tests specified'",
+    "serve": "npx http-server -p 8000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/finbot8912/opinet-oil-price-forecast.git"
+  },
+  "keywords": [
+    "opinet",
+    "oil-price",
+    "forecasting",
+    "gps",
+    "gas-station",
+    "korea",
+    "petroleum",
+    "price-prediction",
+    "ai-model",
+    "javascript",
+    "html5",
+    "geolocation"
+  ],
+  "author": "Opinet Oil Price Forecasting Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/finbot8912/opinet-oil-price-forecast/issues"
+  },
+  "homepage": "https://finbot8912.github.io/opinet-oil-price-forecast",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "Chrome >= 60",
+    "Firefox >= 55",
+    "Safari >= 12",
+    "Edge >= 79",
+    "iOS >= 12",
+    "Android >= 4.4"
+  ]
+}
