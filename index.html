@@ -862,6 +862,10 @@
                 loadRegions();
                 loadForecastData();
                 setupEventListeners();
+                
+                // 자동 GPS 위치 감지 시도
+                autoDetectLocation();
+                
                 updateUI();
                 console.log('✅ GitHub Pages 앱 초기화 완료');
             } catch (error) {
@@ -870,6 +874,92 @@
             }
             
             showLoading(false);
+        }
+
+        // Auto-detect GPS location for default region (Silent)
+        function autoDetectLocation() {
+            if (!navigator.geolocation) {
+                console.log('ℹ️ GPS 미지원 - 울산을 기본 지역으로 설정');
+                return;
+            }
+
+            console.log('🌍 자동 위치 감지 시작...');
+
+            const options = {
+                enableHighAccuracy: false, // 빠른 감지를 위해 낮은 정확도 사용
+                timeout: 5000, // 5초 타임아웃
+                maximumAge: 600000 // 10분 캐시
+            };
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    console.log('✅ 자동 위치 감지 성공');
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    
+                    const nearestRegion = findNearestRegionAuto(lat, lon);
+                    if (nearestRegion) {
+                        console.log(`📍 자동 감지된 지역: ${nearestRegion.name_ko} (${nearestRegion.name})`);
+                        selectedRegion = nearestRegion.name;
+                        
+                        // UI 업데이트
+                        const regionSelector = document.getElementById('regionSelector');
+                        if (regionSelector) {
+                            regionSelector.value = nearestRegion.name;
+                        }
+                        
+                        // 데이터 다시 로드
+                        loadForecastData();
+                        updateUI();
+                        
+                        console.log(`🎯 기본 지역이 ${nearestRegion.name_ko}로 자동 설정되었습니다`);
+                    }
+                },
+                (error) => {
+                    console.log(`ℹ️ 자동 위치 감지 실패: ${error.message} - 울산을 기본 지역으로 유지`);
+                },
+                options
+            );
+        }
+
+        // Find nearest region for auto-detection (Silent version)
+        function findNearestRegionAuto(userLat, userLon) {
+            const regionCoords = {
+                seoul: { lat: 37.5665, lon: 126.9780, name_ko: '서울' },
+                busan: { lat: 35.1796, lon: 129.0756, name_ko: '부산' },
+                daegu: { lat: 35.8714, lon: 128.6014, name_ko: '대구' },
+                incheon: { lat: 37.4563, lon: 126.7052, name_ko: '인천' },
+                gwangju: { lat: 35.1595, lon: 126.8526, name_ko: '광주' },
+                daejeon: { lat: 36.3504, lon: 127.3845, name_ko: '대전' },
+                ulsan: { lat: 35.5384, lon: 129.3114, name_ko: '울산' },
+                sejong: { lat: 36.4800, lon: 127.2890, name_ko: '세종' },
+                gyeonggi: { lat: 37.4138, lon: 127.5183, name_ko: '경기' },
+                gangwon: { lat: 37.8228, lon: 128.1555, name_ko: '강원' },
+                chungbuk: { lat: 36.8, lon: 127.7, name_ko: '충북' },
+                chungnam: { lat: 36.5184, lon: 126.8, name_ko: '충남' },
+                jeonbuk: { lat: 35.7175, lon: 127.153, name_ko: '전북' },
+                jeonnam: { lat: 34.8679, lon: 126.991, name_ko: '전남' },
+                gyeongbuk: { lat: 36.4919, lon: 128.888, name_ko: '경북' },
+                gyeongnam: { lat: 35.4606, lon: 128.2132, name_ko: '경남' },
+                jeju: { lat: 33.4996, lon: 126.5312, name_ko: '제주' }
+            };
+            
+            let minDistance = Infinity;
+            let nearestRegion = null;
+            
+            for (const [regionName, coords] of Object.entries(regionCoords)) {
+                const distance = calculateDistance(userLat, userLon, coords.lat, coords.lon);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    nearestRegion = {
+                        name: regionName,
+                        name_ko: coords.name_ko,
+                        distance: distance
+                    };
+                }
+            }
+            
+            return nearestRegion;
         }
 
         // Standalone Connection Status (GitHub Pages)
