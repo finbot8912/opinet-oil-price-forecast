@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 
 // 컴포넌트 임포트
@@ -33,7 +33,7 @@ function App() {
     if (selectedRegion || selectedFuelType) {
       loadForecastData();
     }
-  }, [selectedRegion, selectedFuelType]);
+  }, [selectedRegion, selectedFuelType, loadForecastData]);
 
   const loadInitialData = async () => {
     try {
@@ -57,7 +57,7 @@ function App() {
     }
   };
 
-  const loadForecastData = async () => {
+  const loadForecastData = useCallback(async () => {
     try {
       setError(null);
       
@@ -71,7 +71,7 @@ function App() {
       console.error('예측 데이터 로드 실패:', err);
       setError('예측 데이터를 불러오는 중 오류가 발생했습니다.');
     }
-  };
+  }, [selectedRegion, selectedFuelType]);
 
   const refreshData = async () => {
     try {
