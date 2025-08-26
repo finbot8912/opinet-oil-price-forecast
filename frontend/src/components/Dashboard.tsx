@@ -46,10 +46,10 @@ const Dashboard: React.FC<DashboardProps> = ({
   
   return (
     <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg shadow-lg text-white p-6">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
         {/* 시스템 정보 */}
         <div>
-          <h2 className="text-lg font-semibold mb-3">시스템 현황</h2>
+          <h2 className="text-lg font-semibold mb-3" style={{ fontSize: 'calc(1.125rem * 1.2)', fontWeight: '700' }}>활성 지역</h2>
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-blue-100">예측 지역:</span>
@@ -76,7 +76,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         {/* 전국 휘발유 평균 */}
         {stats && (
           <div>
-            <h2 className="text-lg font-semibold mb-3">전국 휘발유</h2>
+            <h2 className="text-lg font-semibold mb-3" style={{ fontSize: 'calc(1.125rem * 1.2)', fontWeight: '700' }}>전국 휘발유</h2>
             <div className="space-y-2">
               <div className="text-2xl font-bold">
                 {stats.gasoline.current.toLocaleString()}원
@@ -98,7 +98,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         {/* 전국 경유 평균 */}
         {stats && (
           <div>
-            <h2 className="text-lg font-semibold mb-3">전국 경유</h2>
+            <h2 className="text-lg font-semibold mb-3" style={{ fontSize: 'calc(1.125rem * 1.2)', fontWeight: '700' }}>전국 자동차경유</h2>
             <div className="space-y-2">
               <div className="text-2xl font-bold">
                 {stats.diesel.current.toLocaleString()}원
@@ -116,6 +116,32 @@ const Dashboard: React.FC<DashboardProps> = ({
             </div>
           </div>
         )}
+
+        {/* 보통휘발유 예측정확도 */}
+        <div>
+          <h2 className="text-lg font-semibold mb-3" style={{ fontSize: 'calc(1.125rem * 1.2)', fontWeight: '700' }}>보통휘발유 예측정확도</h2>
+          <div className="space-y-2">
+            <div className="text-2xl font-bold">
+              {metadata.model_accuracy?.gasoline ? `${(metadata.model_accuracy.gasoline * 100).toFixed(1)}%` : '0.0%'}
+            </div>
+            <div className="text-blue-100 text-sm">
+              📊 7일 예측 신뢰도
+            </div>
+          </div>
+        </div>
+
+        {/* 자동차경유 예측정확도 */}
+        <div>
+          <h2 className="text-lg font-semibold mb-3" style={{ fontSize: 'calc(1.125rem * 1.2)', fontWeight: '700' }}>자동차경유 예측정확도</h2>
+          <div className="space-y-2">
+            <div className="text-2xl font-bold">
+              {metadata.model_accuracy?.diesel ? `${(metadata.model_accuracy.diesel * 100).toFixed(1)}%` : '0.0%'}
+            </div>
+            <div className="text-blue-100 text-sm">
+              📊 7일 예측 신뢰도
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* 알림 및 주요 정보 */}
