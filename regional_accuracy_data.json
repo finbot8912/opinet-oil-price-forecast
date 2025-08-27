@@ -1,0 +1,1135 @@
+{
+  "metadata": {
+    "last_updated": "2025-08-25T21:58:00.606155",
+    "data_source": "오피넷 수동 입력"
+  },
+  "daily_actual": {
+    "2025-08-25": {
+      "date_label": "1일 후",
+      "target_date": "2025-08-25",
+      "regions": {
+        "seoul": {
+          "region_name": "서울",
+          "gasoline": 1722.5,
+          "diesel": 1605.8,
+          "gasoline_forecast": 1721.8,
+          "diesel_forecast": 1605.09,
+          "gasoline_accuracy": 99.96,
+          "diesel_accuracy": 99.96
+        },
+        "busan": {
+          "region_name": "부산",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "daegu": {
+          "region_name": "대구",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "incheon": {
+          "region_name": "인천",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gwangju": {
+          "region_name": "광주",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "daejeon": {
+          "region_name": "대전",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "ulsan": {
+          "region_name": "울산",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gyeonggi": {
+          "region_name": "경기",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gangwon": {
+          "region_name": "강원",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "chungbuk": {
+          "region_name": "충북",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "chungnam": {
+          "region_name": "충남",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "jeonbuk": {
+          "region_name": "전북",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "jeonnam": {
+          "region_name": "전남",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gyeongbuk": {
+          "region_name": "경북",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gyeongnam": {
+          "region_name": "경남",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "jeju": {
+          "region_name": "제주",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "sejong": {
+          "region_name": "세종",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        }
+      },
+      "is_available": true,
+      "updated_at": "2025-08-25T21:58:00.605707"
+    },
+    "2025-08-26": {
+      "date_label": "2일 후",
+      "target_date": "2025-08-26",
+      "regions": {
+        "seoul": {
+          "region_name": "서울",
+          "gasoline": 1720.1,
+          "diesel": 1603.4,
+          "gasoline_forecast": 1723.69,
+          "diesel_forecast": 1606.77,
+          "gasoline_accuracy": 99.79,
+          "diesel_accuracy": 99.79
+        },
+        "busan": {
+          "region_name": "부산",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "daegu": {
+          "region_name": "대구",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "incheon": {
+          "region_name": "인천",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gwangju": {
+          "region_name": "광주",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "daejeon": {
+          "region_name": "대전",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "ulsan": {
+          "region_name": "울산",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gyeonggi": {
+          "region_name": "경기",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gangwon": {
+          "region_name": "강원",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "chungbuk": {
+          "region_name": "충북",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "chungnam": {
+          "region_name": "충남",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "jeonbuk": {
+          "region_name": "전북",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "jeonnam": {
+          "region_name": "전남",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gyeongbuk": {
+          "region_name": "경북",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gyeongnam": {
+          "region_name": "경남",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "jeju": {
+          "region_name": "제주",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "sejong": {
+          "region_name": "세종",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        }
+      },
+      "is_available": true,
+      "updated_at": "2025-08-25T21:58:00.606152"
+    },
+    "2025-08-27": {
+      "date_label": "3일 후",
+      "target_date": "2025-08-27",
+      "regions": {
+        "seoul": {
+          "region_name": "서울",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "busan": {
+          "region_name": "부산",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "daegu": {
+          "region_name": "대구",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "incheon": {
+          "region_name": "인천",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gwangju": {
+          "region_name": "광주",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "daejeon": {
+          "region_name": "대전",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "ulsan": {
+          "region_name": "울산",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gyeonggi": {
+          "region_name": "경기",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gangwon": {
+          "region_name": "강원",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "chungbuk": {
+          "region_name": "충북",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "chungnam": {
+          "region_name": "충남",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "jeonbuk": {
+          "region_name": "전북",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "jeonnam": {
+          "region_name": "전남",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gyeongbuk": {
+          "region_name": "경북",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gyeongnam": {
+          "region_name": "경남",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "jeju": {
+          "region_name": "제주",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "sejong": {
+          "region_name": "세종",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        }
+      },
+      "is_available": false,
+      "updated_at": null
+    },
+    "2025-08-28": {
+      "date_label": "4일 후",
+      "target_date": "2025-08-28",
+      "regions": {
+        "seoul": {
+          "region_name": "서울",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "busan": {
+          "region_name": "부산",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "daegu": {
+          "region_name": "대구",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "incheon": {
+          "region_name": "인천",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gwangju": {
+          "region_name": "광주",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "daejeon": {
+          "region_name": "대전",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "ulsan": {
+          "region_name": "울산",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gyeonggi": {
+          "region_name": "경기",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gangwon": {
+          "region_name": "강원",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "chungbuk": {
+          "region_name": "충북",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "chungnam": {
+          "region_name": "충남",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "jeonbuk": {
+          "region_name": "전북",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "jeonnam": {
+          "region_name": "전남",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gyeongbuk": {
+          "region_name": "경북",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gyeongnam": {
+          "region_name": "경남",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "jeju": {
+          "region_name": "제주",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "sejong": {
+          "region_name": "세종",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        }
+      },
+      "is_available": false,
+      "updated_at": null
+    },
+    "2025-08-29": {
+      "date_label": "5일 후",
+      "target_date": "2025-08-29",
+      "regions": {
+        "seoul": {
+          "region_name": "서울",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "busan": {
+          "region_name": "부산",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "daegu": {
+          "region_name": "대구",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "incheon": {
+          "region_name": "인천",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gwangju": {
+          "region_name": "광주",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "daejeon": {
+          "region_name": "대전",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "ulsan": {
+          "region_name": "울산",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gyeonggi": {
+          "region_name": "경기",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gangwon": {
+          "region_name": "강원",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "chungbuk": {
+          "region_name": "충북",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "chungnam": {
+          "region_name": "충남",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "jeonbuk": {
+          "region_name": "전북",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "jeonnam": {
+          "region_name": "전남",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gyeongbuk": {
+          "region_name": "경북",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gyeongnam": {
+          "region_name": "경남",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "jeju": {
+          "region_name": "제주",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "sejong": {
+          "region_name": "세종",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        }
+      },
+      "is_available": false,
+      "updated_at": null
+    },
+    "2025-08-30": {
+      "date_label": "6일 후",
+      "target_date": "2025-08-30",
+      "regions": {
+        "seoul": {
+          "region_name": "서울",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "busan": {
+          "region_name": "부산",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "daegu": {
+          "region_name": "대구",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "incheon": {
+          "region_name": "인천",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gwangju": {
+          "region_name": "광주",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "daejeon": {
+          "region_name": "대전",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "ulsan": {
+          "region_name": "울산",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gyeonggi": {
+          "region_name": "경기",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gangwon": {
+          "region_name": "강원",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "chungbuk": {
+          "region_name": "충북",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "chungnam": {
+          "region_name": "충남",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "jeonbuk": {
+          "region_name": "전북",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "jeonnam": {
+          "region_name": "전남",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gyeongbuk": {
+          "region_name": "경북",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gyeongnam": {
+          "region_name": "경남",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "jeju": {
+          "region_name": "제주",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "sejong": {
+          "region_name": "세종",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        }
+      },
+      "is_available": false,
+      "updated_at": null
+    },
+    "2025-08-31": {
+      "date_label": "7일 후",
+      "target_date": "2025-08-31",
+      "regions": {
+        "seoul": {
+          "region_name": "서울",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "busan": {
+          "region_name": "부산",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "daegu": {
+          "region_name": "대구",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "incheon": {
+          "region_name": "인천",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gwangju": {
+          "region_name": "광주",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "daejeon": {
+          "region_name": "대전",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "ulsan": {
+          "region_name": "울산",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gyeonggi": {
+          "region_name": "경기",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gangwon": {
+          "region_name": "강원",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "chungbuk": {
+          "region_name": "충북",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "chungnam": {
+          "region_name": "충남",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "jeonbuk": {
+          "region_name": "전북",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "jeonnam": {
+          "region_name": "전남",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gyeongbuk": {
+          "region_name": "경북",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "gyeongnam": {
+          "region_name": "경남",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "jeju": {
+          "region_name": "제주",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        },
+        "sejong": {
+          "region_name": "세종",
+          "gasoline": null,
+          "diesel": null,
+          "gasoline_forecast": null,
+          "diesel_forecast": null,
+          "gasoline_accuracy": null,
+          "diesel_accuracy": null
+        }
+      },
+      "is_available": false,
+      "updated_at": null
+    }
+  }
+}

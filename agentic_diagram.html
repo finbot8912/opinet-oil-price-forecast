@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LangGraph Agentic 기능 도표</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+        
+        .main-diagram {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: start;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-left: 5px solid #667eea;
+        }
+        
+        .section h3 {
+            color: #2d3748;
+            margin-top: 0;
+            font-size: 1.4em;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+        
+        .core-flow {
+            background: linear-gradient(135deg, #4299e1, #667eea);
+            color: white;
+            border: none;
+            position: relative;
+        }
+        
+        .core-flow h3 {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+        }
+        
+        .flow-step {
+            background: rgba(255,255,255,0.15);
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid rgba(255,255,255,0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .flow-step:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateX(5px);
+        }
+        
+        .step-number {
+            background: rgba(255,255,255,0.9);
+            color: #4299e1;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .component-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-top: 4px solid #48bb78;
+            transition: all 0.3s ease;
+        }
+        
+        .component-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .component-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            color: white;
+            font-size: 1.5em;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #4a5568;
+        }
+        
+        .feature-list li:before {
+            content: "●";
+            color: #667eea;
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+        
+        .architecture-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .arch-node {
+            background: linear-gradient(135deg, #ed8936, #dd6b20);
+            color: white;
+            padding: 20px 25px;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 120px;
+            box-shadow: 0 5px 15px rgba(237, 137, 54, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .arch-node:hover {
+            transform: scale(1.05);
+        }
+        
+        .arrow {
+            font-size: 2em;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .benefit-item {
+            background: linear-gradient(135deg, #9f7aea, #805ad5);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .benefit-number {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+        
+        .download-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .download-btn {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3);
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(72, 187, 120, 0.4);
+            background: linear-gradient(135deg, #38a169, #2f855a);
+        }
+        
+        @media print {
+            body {
+                background: white !important;
+            }
+            
+            .container {
+                background: white !important;
+                box-shadow: none !important;
+                max-width: none !important;
+                margin: 0 !important;
+                padding: 20px !important;
+            }
+            
+            .download-section {
+                display: none !important;
+            }
+            
+            .section, .component-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            
+            .main-diagram {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-diagram {
+                grid-template-columns: 1fr;
+            }
+            
+            .architecture-flow {
+                flex-direction: column;
+            }
+            
+            .arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔗 <strong>Agentic 기능</strong></h1>
+        <p class="subtitle">그래프 기반 AI 에이전트 워크플로우 구축 프레임워크</p>
+        
+        <div class="download-section">
+            <button onclick="downloadPDF()" class="download-btn">
+                📄 PDF로 다운로드
+            </button>
+        </div>
+        
+        <div class="main-diagram">
+            <div class="section">
+                <h3>🎯 핵심 구성요소</h3>
+                <ul class="feature-list">
+                    <li><strong>노드(Nodes)</strong><br>개별 작업 단위</li>
+                    <li><strong>엣지(Edges)</strong><br>작업 간 연결</li>
+                    <li><strong>상태(State)</strong><br>정보 공유 메커니즘</li>
+                    <li><strong>라우터(Router)</strong><br>조건부 분기</li>
+                    <li><strong>체크포인트</strong><br>실행 상태 저장</li>
+                </ul>
+            </div>
+            
+            <div class="section core-flow">
+                <h3>🔄 실행 흐름</h3>
+                <div class="flow-step">
+                    <span class="step-number">1</span>
+                    <strong>입력 처리</strong><br>
+                    사용자 쿼리 분석 및 초기 상태 설정
+                </div>
+                <div class="flow-step">
+                    <span class="step-number">2</span>
+                    <strong>에이전트 실행</strong><br>
+                    LLM 기반 의사결정 및 도구 선택
+                </div>
+                <div class="flow-step">
+                    <span class="step-number">3</span>
+                    <strong>도구 실행</strong><br>
+                    선택된 도구를 통한 작업 수행
+                </div>
+                <div class="flow-step">
+                    <span class="step-number">4</span>
+                    <strong>상태 업데이트</strong><br>
+                    실행 결과를 상태에 반영
+                </div>
+                <div class="flow-step">
+                    <span class="step-number">5</span>
+                    <strong>조건 판단</strong><br>
+                    완료 여부 판단 또는 다음 단계로
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>🛠️ 주요 기능</h3>
+                <ul class="feature-list">
+                    <li><strong>순환 처리</strong><br>복잡한 멀티스텝 작업</li>
+                    <li><strong>조건부 라우팅</strong><br>동적 워크플로우</li>
+                    <li><strong>병렬 실행</strong><br>효율적인 처리</li>
+                    <li><strong>에러 핸들링</strong><br>견고한 시스템</li>
+                    <li><strong>스트리밍</strong><br>실시간 응답</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="architecture-flow">
+            <div class="arch-node">
+                <strong>입력</strong><br>
+                사용자 쿼리
+            </div>
+            <div class="arrow">→</div>
+            <div class="arch-node">
+                <strong>그래프</strong><br>
+                워크플로우
+            </div>
+            <div class="arrow">→</div>
+            <div class="arch-node">
+                <strong>에이전트</strong><br>
+                LLM + 도구
+            </div>
+            <div class="arrow">→</div>
+            <div class="arch-node">
+                <strong>출력</strong><br>
+                최종 결과
+            </div>
+        </div>
+        
+        <div class="component-grid">
+            <div class="component-card">
+                <div class="component-icon">🤖</div>
+                <h4>Agent Node</h4>
+                <p>LLM을 활용한 의사결정 노드로, 상황에 따라 적절한 도구를 선택하고 실행합니다.</p>
+                <ul class="feature-list">
+                    <li>동적 도구 선택</li>
+                    <li>컨텍스트 기반 판단</li>
+                    <li>메시지 생성</li>
+                </ul>
+            </div>
+            
+            <div class="component-card">
+                <div class="component-icon">⚙️</div>
+                <h4>Tool Node</h4>
+                <p>실제 작업을 수행하는 도구들의 집합으로, 외부 API 호출이나 데이터 처리를 담당합니다.</p>
+                <ul class="feature-list">
+                    <li>웹 검색</li>
+                    <li>데이터베이스 조회</li>
+                    <li>파일 처리</li>
+                </ul>
+            </div>
+            
+            <div class="component-card">
+                <div class="component-icon">🔀</div>
+                <h4>Conditional Edge</h4>
+                <p>상태나 결과에 따라 다음 노드를 결정하는 조건부 라우팅 메커니즘입니다.</p>
+                <ul class="feature-list">
+                    <li>동적 분기</li>
+                    <li>상태 기반 라우팅</li>
+                    <li>에러 처리</li>
+                </ul>
+            </div>
+            
+            <div class="component-card">
+                <div class="component-icon">💾</div>
+                <h4>State Management</h4>
+                <p>전체 워크플로우에서 정보를 공유하고 관리하는 상태 관리 시스템입니다.</p>
+                <ul class="feature-list">
+                    <li>메시지 히스토리</li>
+                    <li>중간 결과 저장</li>
+                    <li>컨텍스트 유지</li>
+                </ul>
+            </div>
+            
+            <div class="component-card">
+                <div class="component-icon">🎯</div>
+                <h4>Human-in-the-Loop</h4>
+                <p>사람의 개입이 필요한 시점에서 워크플로우를 일시 정지하고 승인을 요청합니다.</p>
+                <ul class="feature-list">
+                    <li>승인 요청</li>
+                    <li>수동 검토</li>
+                    <li>피드백 수집</li>
+                </ul>
+            </div>
+            
+            <div class="component-card">
+                <div class="component-icon">📊</div>
+                <h4>Streaming & Monitoring</h4>
+                <p>실시간 실행 상태 모니터링과 스트리밍 응답을 제공합니다.</p>
+                <ul class="feature-list">
+                    <li>실시간 로그</li>
+                    <li>진행 상황 추적</li>
+                    <li>성능 메트릭</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="section" style="margin-top: 40px;">
+            <h3>🌟 Agentic 시스템의 장점</h3>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="benefit-number">01</div>
+                    <h4>자율성</h4>
+                    <p>에이전트가 자율적으로 판단하고 실행</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-number">02</div>
+                    <h4>적응성</h4>
+                    <p>상황에 따른 동적 워크플로우 조정</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-number">03</div>
+                    <h4>확장성</h4>
+                    <p>새로운 도구와 노드의 쉬운 추가</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-number">04</div>
+                    <h4>투명성</h4>
+                    <p>각 단계별 실행 과정의 명확한 추적</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section" style="margin-top: 30px;">
+            <h3>💡 실제 활용 사례</h3>
+            <ul class="feature-list">
+                <li><strong>고객 지원 에이전트:</strong> 문의 분석 → 정보 검색 → 답변 생성 → 만족도 확인</li>
+                <li><strong>데이터 분석 에이전트:</strong> 데이터 수집 → 전처리 → 분석 → 시각화 → 보고서 생성</li>
+                <li><strong>코드 리뷰 에이전트:</strong> 코드 분석 → 이슈 탐지 → 개선 제안 → 문서화</li>
+                <li><strong>연구 에이전트:</strong> 키워드 분석 → 논문 검색 → 요약 → 인사이트 도출</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        function downloadPDF() {
+            // 인쇄 최적화를 위한 준비
+            const originalTitle = document.title;
+            document.title = 'Agentic_기능_도표';
+            
+            // 브라우저 인쇄 다이얼로그 열기
+            window.print();
+            
+            // 원래 제목 복원
+            setTimeout(() => {
+                document.title = originalTitle;
+            }, 1000);
+        }
+        
+        // 인쇄 이벤트 리스너 추가
+        window.addEventListener('beforeprint', function() {
+            // 인쇄 전 추가 최적화가 필요한 경우
+            console.log('PDF 생성 중...');
+        });
+        
+        window.addEventListener('afterprint', function() {
+            console.log('PDF 생성 완료');
+        });
+    </script>
+</body>
+</html>

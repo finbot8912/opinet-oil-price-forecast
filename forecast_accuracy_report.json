@@ -1,0 +1,140 @@
+{
+  "analysis_date": "2025-08-24",
+  "data_period": "2025-08-23 ~ 2025-08-24",
+  "national_average": {
+    "yesterday": 1661.5,
+    "today": 1661.27,
+    "change_rate": -0.0138,
+    "absolute_change": -0.23,
+    "accuracy": 99.9
+  },
+  "regional_analysis": {
+    "서울": {
+      "yesterday_price": 1720.51,
+      "today_price": 1721.3,
+      "change_rate": 0.0459,
+      "absolute_change": 0.79,
+      "accuracy": 99.8
+    },
+    "부산": {
+      "yesterday_price": 1654.83,
+      "today_price": 1654.47,
+      "change_rate": -0.0218,
+      "absolute_change": -0.36,
+      "accuracy": 99.9
+    },
+    "대구": {
+      "yesterday_price": 1633.32,
+      "today_price": 1633.07,
+      "change_rate": -0.0153,
+      "absolute_change": -0.25,
+      "accuracy": 99.9
+    },
+    "인천": {
+      "yesterday_price": 1648.77,
+      "today_price": 1648.71,
+      "change_rate": -0.0036,
+      "absolute_change": -0.06,
+      "accuracy": 100.0
+    },
+    "광주": {
+      "yesterday_price": 1645.93,
+      "today_price": 1645.48,
+      "change_rate": -0.0273,
+      "absolute_change": -0.45,
+      "accuracy": 99.9
+    },
+    "대전": {
+      "yesterday_price": 1642.37,
+      "today_price": 1641.97,
+      "change_rate": -0.0244,
+      "absolute_change": -0.4,
+      "accuracy": 99.9
+    },
+    "울산": {
+      "yesterday_price": 1633.31,
+      "today_price": 1633.45,
+      "change_rate": 0.0086,
+      "absolute_change": 0.14,
+      "accuracy": 100.0
+    },
+    "경기": {
+      "yesterday_price": 1659.93,
+      "today_price": 1659.73,
+      "change_rate": -0.012,
+      "absolute_change": -0.2,
+      "accuracy": 99.9
+    },
+    "강원": {
+      "yesterday_price": 1679.73,
+      "today_price": 1679.62,
+      "change_rate": -0.0065,
+      "absolute_change": -0.11,
+      "accuracy": 100.0
+    },
+    "충북": {
+      "yesterday_price": 1666.55,
+      "today_price": 1666.71,
+      "change_rate": 0.0096,
+      "absolute_change": 0.16,
+      "accuracy": 100.0
+    },
+    "충남": {
+      "yesterday_price": 1668.89,
+      "today_price": 1668.87,
+      "change_rate": -0.0012,
+      "absolute_change": -0.02,
+      "accuracy": 100.0
+    },
+    "전북": {
+      "yesterday_price": 1654.17,
+      "today_price": 1654.08,
+      "change_rate": -0.0054,
+      "absolute_change": -0.09,
+      "accuracy": 100.0
+    },
+    "전남": {
+      "yesterday_price": 1668.69,
+      "today_price": 1668.66,
+      "change_rate": -0.0018,
+      "absolute_change": -0.03,
+      "accuracy": 100.0
+    },
+    "경북": {
+      "yesterday_price": 1655.63,
+      "today_price": 1653.09,
+      "change_rate": -0.1534,
+      "absolute_change": -2.54,
+      "accuracy": 99.2
+    },
+    "경남": {
+      "yesterday_price": 1654.48,
+      "today_price": 1654.24,
+      "change_rate": -0.0145,
+      "absolute_change": -0.24,
+      "accuracy": 99.9
+    },
+    "제주": {
+      "yesterday_price": 1709.12,
+      "today_price": 1708.39,
+      "change_rate": -0.0427,
+      "absolute_change": -0.73,
+      "accuracy": 99.8
+    },
+    "세종": {
+      "yesterday_price": 1649.31,
+      "today_price": 1649.7,
+      "change_rate": 0.0236,
+      "absolute_change": 0.39,
+      "accuracy": 99.9
+    }
+  },
+  "summary": {
+    "total_regions": 17,
+    "average_regional_accuracy": 99.9,
+    "national_accuracy": 99.9,
+    "final_accuracy": 99.9,
+    "accuracy_method": "전일 대비 가격 변화율 기반 정확도 산출",
+    "stability_assessment": "안정적"
+  }
+}

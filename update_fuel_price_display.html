@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘의 전국 평균 유가</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .price-container {
+            display: flex;
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .price-card {
+            flex: 1;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .price-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100%;
+            background: var(--accent-color);
+        }
+        
+        .gasoline-card {
+            --accent-color: #FF6B35;
+        }
+        
+        .diesel-card {
+            --accent-color: #4CAF50;
+        }
+        
+        .icon-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .gasoline-icon {
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+        }
+        
+        .diesel-icon {
+            background: linear-gradient(135deg, #4CAF50, #8BC34A);
+        }
+        
+        .fuel-type {
+            color: #666;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .price {
+            font-size: 48px;
+            font-weight: 800;
+            color: #2c3e50;
+            margin: 10px 0;
+            line-height: 1;
+        }
+        
+        .unit {
+            color: #7f8c8d;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .update-info {
+            background: #ecf0f1;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #5a6c7d;
+        }
+        
+        .date {
+            font-weight: 600;
+            color: #34495e;
+        }
+        
+        .change-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 10px;
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+        
+        .price-down {
+            background: #e8f5e8;
+            color: #2e7d32;
+        }
+        
+        .arrow-down::before {
+            content: '↓';
+            font-size: 16px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+        
+        .stat-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #495057;
+        }
+    </style>
+</head>
+<body>
+    <div class="price-container">
+        <!-- 보통휘발유 카드 -->
+        <div class="price-card gasoline-card">
+            <div class="icon-container">
+                <div class="icon gasoline-icon">⛽</div>
+                <div>
+                    <h2 class="fuel-type">전국 휘발유</h2>
+                </div>
+            </div>
+            
+            <div class="price">1,661.27<span class="unit">원</span></div>
+            
+            <div class="change-indicator price-down">
+                <span class="arrow-down"></span>
+                전일 대비 12.93원 하락
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-label">최저가 지역</div>
+                    <div class="stat-value">대구 (1,633원)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">최고가 지역</div>
+                    <div class="stat-value">서울 (1,721원)</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 자동차용경유 카드 -->
+        <div class="price-card diesel-card">
+            <div class="icon-container">
+                <div class="icon diesel-icon">🚛</div>
+                <div>
+                    <h2 class="fuel-type">전국 자동차경유</h2>
+                </div>
+            </div>
+            
+            <div class="price">1,534.45<span class="unit">원</span></div>
+            
+            <div class="change-indicator price-down">
+                <span class="arrow-down"></span>
+                전일 대비 3.92원 하락
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-label">최저가 지역</div>
+                    <div class="stat-value">대구 (1,498원)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">최고가 지역</div>
+                    <div class="stat-value">서울 (1,604원)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="update-info">
+        <div class="date">2025년 8월 24일 기준</div>
+        <div>오피넷(OPINET) 실시간 데이터 | 전국 17개 지역 평균가격</div>
+    </div>
+</body>
+</html>

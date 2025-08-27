@@ -585,9 +585,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex items-center justify-between p-3 bg-indigo-50 rounded-md">
+                        <div class="flex items-center justify-between p-3 bg-indigo-50 rounded-md cursor-pointer hover:bg-indigo-100 transition-colors duration-200"
+                             id="day2-card" onclick="toggleActualPrice('day2')">
                             <span class="text-sm font-medium text-indigo-900">2일 후</span>
-                            <span class="text-lg font-semibold text-indigo-900 day2-price">-</span>
+                            <div class="text-right">
+                                <span class="text-lg font-semibold text-indigo-900 day2-price">-</span>
+                                <div class="text-sm text-green-600 font-medium day2-actual" style="display: none;">
+                                    실제: <span class="actual-price-value">-</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="flex items-center justify-between p-3 bg-purple-50 rounded-md">
                             <span class="text-sm font-medium text-purple-900">3일 후</span>
@@ -721,14 +727,14 @@
             const dieselElement = document.getElementById('diesel-accuracy');
             
             if (gasolineElement) {
-                gasolineElement.textContent = `${fuelAccuracy.gasoline.toFixed(1)}%`;
+                gasolineElement.textContent = `${fuelAccuracy.gasoline.toFixed(2)}%`;
             }
             
             if (dieselElement) {
-                dieselElement.textContent = `${fuelAccuracy.diesel.toFixed(1)}%`;
+                dieselElement.textContent = `${fuelAccuracy.diesel.toFixed(2)}%`;
             }
             
-            console.log(`🎯 연료별 정확도 업데이트: 휘발유 ${fuelAccuracy.gasoline.toFixed(1)}%, 경유 ${fuelAccuracy.diesel.toFixed(1)}%`);
+            console.log(`🎯 연료별 정확도 업데이트: 휘발유 ${fuelAccuracy.gasoline.toFixed(2)}%, 경유 ${fuelAccuracy.diesel.toFixed(2)}%`);
         }
         
         // 예측 정확도 계산 함수
@@ -738,7 +744,7 @@
             const errorRate = Math.abs(predictedPrice - actualPrice) / actualPrice * 100;
             const accuracy = Math.max(0, 100 - errorRate);
             
-            console.log(`🔍 정확도 계산: 예측=${predictedPrice}원, 실제=${actualPrice}원, 오차율=${errorRate.toFixed(2)}%, 정확도=${accuracy.toFixed(1)}%`);
+            console.log(`🔍 정확도 계산: 예측=${predictedPrice}원, 실제=${actualPrice}원, 오차율=${errorRate.toFixed(2)}%, 정확도=${accuracy.toFixed(2)}%`);
             
             return accuracy;
         }
@@ -762,7 +768,7 @@
                 const accuracy = calculatePredictionAccuracy(predictedPrice, actualPrice);
                 fuelAccuracy[fuelType] = accuracy;
                 
-                console.log(`🎯 ${fuelType} 정확도 계산: 예측=${predictedPrice}원, 실제=${actualPrice}원, 정확도=${accuracy.toFixed(1)}%`);
+                console.log(`🎯 ${fuelType} 정확도 계산: 예측=${predictedPrice}원, 실제=${actualPrice}원, 정확도=${accuracy.toFixed(2)}%`);
                 
                 // UI 업데이트
                 updateFuelAccuracy();
@@ -779,7 +785,7 @@
         
         // 실제 가격 데이터 로드 함수 (오피넷 실제 데이터 반영)
         function loadActualPricesData() {
-            // 2025년 8월 25일 오피넷 실제 가격 데이터
+            // 2025년 8월 25일, 26일 오피넷 실제 가격 데이터
             actualPricesData = {
                 "2025년08월25일": {
                     "gasoline": {
@@ -796,17 +802,51 @@
                         "jeonbuk": 1525.65, "jeonnam": 1549.88, "gyeongbuk": 1534.71, "gyeongnam": 1536.19,
                         "jeju": 1589.62
                     }
+                },
+                "2025년08월26일": {
+                    "gasoline": {
+                        "seoul": 1728.00, "busan": 1654.40, "daegu": 1632.81, "incheon": 1649.80,
+                        "gwangju": 1645.39, "daejeon": 1641.50, "ulsan": 1636.21, "sejong": 1650.12,
+                        "gyeonggi": 1660.03, "gangwon": 1679.02, "chungbuk": 1666.56, "chungnam": 1668.46,
+                        "jeonbuk": 1653.94, "jeonnam": 1668.34, "gyeongbuk": 1653.16, "gyeongnam": 1654.25,
+                        "jeju": 1708.16
+                    },
+                    "diesel": {
+                        "seoul": 1609.76, "busan": 1526.69, "daegu": 1497.02, "incheon": 1524.92,
+                        "gwangju": 1520.57, "daejeon": 1522.90, "ulsan": 1517.31, "sejong": 1532.58,
+                        "gyeonggi": 1526.64, "gangwon": 1551.54, "chungbuk": 1538.34, "chungnam": 1537.42,
+                        "jeonbuk": 1525.28, "jeonnam": 1550.88, "gyeongbuk": 1535.71, "gyeongnam": 1537.19,
+                        "jeju": 1590.62
+                    }
                 }
             };
-            console.log('✅ 오피넷 실제 가격 데이터 로드 완료 (8월 25일)');
+            console.log('✅ 오피넷 실제 가격 데이터 로드 완료 (8월 25일, 26일)');
         }
         
-        // 1일 후 실제 가격 토글 함수
+        // 실제 가격 토글 함수 (1일 후, 2일 후 지원 + 정확도 계산)
         function toggleActualPrice(day) {
-            if (day !== 'day1') return; // 현재는 1일 후만 지원
+            const supportedDays = ['day1', 'day2'];
+            if (!supportedDays.includes(day)) return;
             
-            const actualDiv = document.querySelector('.day1-actual');
-            const actualPriceSpan = document.querySelector('.day1-actual .actual-price-value');
+            // 날짜별 설정
+            const dayConfig = {
+                'day1': {
+                    selector: '.day1-actual',
+                    dateKey: '2025년08월25일',
+                    dayLabel: '8월25일',
+                    dayIndex: 0  // 예측 데이터에서 1일 후는 index 0
+                },
+                'day2': {
+                    selector: '.day2-actual',
+                    dateKey: '2025년08월26일',
+                    dayLabel: '8월26일',
+                    dayIndex: 1  // 예측 데이터에서 2일 후는 index 1
+                }
+            };
+            
+            const config = dayConfig[day];
+            const actualDiv = document.querySelector(config.selector);
+            const actualPriceSpan = document.querySelector(config.selector + ' .actual-price-value');
             
             if (!actualPricesData) {
                 console.log('⚠️ 실제 가격 데이터가 로드되지 않았습니다.');
@@ -814,31 +854,75 @@
             }
             
             if (actualDiv.style.display === 'none') {
-                // 실제 가격 표시
+                // 실제 가격 표시 및 정확도 계산
                 const regionKey = selectedRegion; // seoul, busan, etc.
                 const fuelType = selectedFuelType; // gasoline, diesel
                 
-                const actualPrice = actualPricesData["2025년08월25일"][fuelType][regionKey];
+                const actualPrice = actualPricesData[config.dateKey][fuelType][regionKey];
                 
                 if (actualPrice) {
                     actualPriceSpan.textContent = actualPrice.toLocaleString() + '원';
                     actualDiv.style.display = 'block';
                     
-                    console.log(`📊 실제 가격 표시: ${regionKey} ${fuelType} 8월25일 ${actualPrice}원`);
+                    console.log(`📊 실제 가격 표시: ${regionKey} ${fuelType} ${config.dayLabel} ${actualPrice}원`);
+                    
+                    // 예측 정확도 계산 및 업데이트
+                    calculateAndUpdateAccuracy(config.dayIndex, actualPrice);
+                    
                 } else {
                     console.log('⚠️ 해당 지역/연료의 실제 가격 데이터를 찾을 수 없습니다.');
                 }
             } else {
                 // 실제 가격 숨기기
                 actualDiv.style.display = 'none';
-                console.log('📊 실제 가격 숨김');
+                console.log(`📊 실제 가격 숨김 (${config.dayLabel})`);
                 
-                // 초기 정확도로 복원 (0%)
+                // 정확도를 0%로 초기화
                 fuelAccuracy.gasoline = 0.0;
                 fuelAccuracy.diesel = 0.0;
                 updateFuelAccuracy();
                 console.log('🔄 초기 정확도(0%)로 복원');
             }
+        }
+        
+        // 예측 정확도 계산 및 업데이트 함수
+        function calculateAndUpdateAccuracy(dayIndex, actualPrice) {
+            // 화면에 표시된 예측 가격 직접 가져오기
+            let predictedPriceText;
+            if (dayIndex === 0) {
+                // 1일 후
+                predictedPriceText = document.querySelector('.day1-price').textContent;
+            } else if (dayIndex === 1) {
+                // 2일 후
+                predictedPriceText = document.querySelector('.day2-price').textContent;
+            } else {
+                console.log('⚠️ 지원하지 않는 dayIndex:', dayIndex);
+                return;
+            }
+            
+            // 텍스트에서 숫자만 추출 (1,636.89원 -> 1636.89)
+            const predictedPrice = parseFloat(predictedPriceText.replace(/[^\d.]/g, ''));
+            
+            if (isNaN(predictedPrice)) {
+                console.log('⚠️ 예측 가격을 파싱할 수 없습니다:', predictedPriceText);
+                return;
+            }
+            
+            console.log(`🔍 정확도 계산: 예측=${predictedPrice}원, 실제=${actualPrice}원`);
+            
+            // 정확도 계산
+            const accuracy = calculatePredictionAccuracy(predictedPrice, actualPrice);
+            
+            if (selectedFuelType === 'gasoline') {
+                fuelAccuracy.gasoline = accuracy;
+                console.log(`🎯 보통휘발유 정확도 업데이트: ${accuracy.toFixed(2)}%`);
+            } else if (selectedFuelType === 'diesel') {
+                fuelAccuracy.diesel = accuracy;
+                console.log(`🎯 자동차경유 정확도 업데이트: ${accuracy.toFixed(2)}%`);
+            }
+            
+            // UI 업데이트
+            updateFuelAccuracy();
         }
 
 
@@ -2699,6 +2783,409 @@
 
         // Initialize when page loads
         document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+
+    <!-- 챗봇 UI -->
+    <div id="chatbot-container" class="fixed bottom-4 left-4 z-50">
+        <!-- 챗봇 토글 버튼 -->
+        <button id="chatbot-toggle" class="bg-blue-600 hover:bg-blue-700 text-white rounded-full p-3 shadow-lg transition-all duration-300" onclick="toggleChatbot()">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+            </svg>
+        </button>
+
+        <!-- 챗봇 윈도우 -->
+        <div id="chatbot-window" class="hidden bg-white rounded-lg shadow-xl border border-gray-200 mb-4" style="width: 350px; height: 450px;">
+            <!-- 헤더 -->
+            <div class="bg-blue-600 text-white p-4 rounded-t-lg flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="w-3 h-3 bg-green-400 rounded-full mr-2 animate-pulse"></div>
+                    <h3 class="font-semibold">유가 정보 챗봇</h3>
+                </div>
+                <button id="chatbot-close" class="text-white hover:text-gray-200 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- 채팅 메시지 영역 -->
+            <div id="chatbot-messages" class="flex-1 p-4 overflow-y-auto" style="height: 320px;">
+                <div class="bot-message mb-3">
+                    <div class="bg-gray-100 rounded-lg p-3 text-sm">
+                        안녕하세요! 🛢️ 유가 정보 챗봇입니다.<br>
+                        <strong>질문 예시:</strong><br>
+                        • "서울 휘발유 8월25일 가격은?"<br>
+                        • "울산 경유 예측 가격은?"<br>
+                        • "8월26일 부산 실제 가격"
+                    </div>
+                </div>
+            </div>
+
+            <!-- 입력 영역 -->
+            <div class="border-t p-3">
+                <div class="flex space-x-2">
+                    <input 
+                        id="chatbot-input" 
+                        type="text" 
+                        placeholder="유가 정보를 질문해보세요..."
+                        class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                    >
+                    <button 
+                        id="chatbot-send" 
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors text-sm"
+                    >
+                        전송
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 챗봇 관련 변수들
+        let chatbotData = null;
+
+        // 챗봇 초기화 함수
+        function initializeChatbot() {
+            console.log('🤖 챗봇 초기화 시작');
+            
+            // 챗봇 토글 버튼 이벤트 (onclick 속성으로 처리하므로 주석 처리)
+            // document.getElementById('chatbot-toggle').addEventListener('click', toggleChatbot);
+            
+            // 챗봇 닫기 버튼 이벤트
+            document.getElementById('chatbot-close').addEventListener('click', closeChatbot);
+            
+            // 메시지 전송 이벤트 - 완전히 안정적인 방식
+            const sendButton = document.getElementById('chatbot-send');
+            const inputField = document.getElementById('chatbot-input');
+            
+            if (sendButton) {
+                // 기존 이벤트 리스너 제거
+                sendButton.removeEventListener('click', sendMessage);
+                // 새로운 이벤트 리스너 추가
+                sendButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('🎯 전송 버튼 클릭 감지');
+                    sendMessage();
+                });
+                console.log('✅ 전송 버튼 이벤트 리스너 설정됨');
+            } else {
+                console.error('❌ 전송 버튼을 찾을 수 없습니다');
+            }
+            
+            // Enter 키로 메시지 전송
+            if (inputField) {
+                // 새로운 이벤트 리스너 추가 (기존 제거 과정 생략)
+                inputField.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        console.log('🎯 엔터키 입력 감지');
+                        sendMessage();
+                    }
+                });
+                console.log('✅ 엔터키 이벤트 리스너 설정됨');
+            } else {
+                console.error('❌ 입력 필드를 찾을 수 없습니다');
+            }
+
+            // 챗봇 데이터 로드
+            loadChatbotData();
+        }
+
+        // 챗봇 데이터 로드 함수 - 완전히 안정적인 버전
+        function loadChatbotData() {
+            console.log('🔄 챗봇 데이터 로딩 시작');
+            
+            // 전역 변수에 하드코딩된 데이터 확실하게 설정
+            window.chatbotData = {
+                historical: {
+                    "2025년08월24일": {
+                        "gasoline": {
+                            "seoul": 1721.30, "busan": 1654.27, "daegu": 1633.05, "incheon": 1649.30,
+                            "gwangju": 1645.61, "daejeon": 1641.53, "ulsan": 1635.46, "sejong": 1650.12,
+                            "gyeonggi": 1660.12, "gangwon": 1679.16, "chungbuk": 1666.66, "chungnam": 1668.51,
+                            "jeonbuk": 1653.75, "jeonnam": 1668.34, "gyeongbuk": 1652.87, "gyeongnam": 1653.98,
+                            "jeju": 1708.15
+                        },
+                        "diesel": {
+                            "seoul": 1603.26, "busan": 1536.73, "daegu": 1515.41, "incheon": 1530.85,
+                            "gwangju": 1527.32, "daejeon": 1523.91, "ulsan": 1517.91, "sejong": 1532.58,
+                            "gyeonggi": 1542.67, "gangwon": 1561.15, "chungbuk": 1549.29, "chungnam": 1551.44,
+                            "jeonbuk": 1537.02, "jeonnam": 1550.88, "gyeongbuk": 1535.71, "gyeongnam": 1537.19,
+                            "jeju": 1590.62
+                        }
+                    },
+                    "2025년08월25일": {
+                        "gasoline": {
+                            "seoul": 1728.33, "busan": 1654.27, "daegu": 1633.05, "incheon": 1649.30,
+                            "gwangju": 1645.61, "daejeon": 1641.53, "ulsan": 1635.46, "sejong": 1649.44,
+                            "gyeonggi": 1660.12, "gangwon": 1679.16, "chungbuk": 1666.66, "chungnam": 1668.51,
+                            "jeonbuk": 1653.75, "jeonnam": 1668.34, "gyeongbuk": 1652.87, "gyeongnam": 1653.98,
+                            "jeju": 1708.15
+                        },
+                        "diesel": {
+                            "seoul": 1609.83, "busan": 1526.75, "daegu": 1497.45, "incheon": 1524.95,
+                            "gwangju": 1520.70, "daejeon": 1522.52, "ulsan": 1516.70, "sejong": 1527.45,
+                            "gyeonggi": 1526.95, "gangwon": 1551.23, "chungbuk": 1538.87, "chungnam": 1537.84,
+                            "jeonbuk": 1525.65, "jeonnam": 1539.41, "gyeongbuk": 1521.51, "gyeongnam": 1525.18,
+                            "jeju": 1584.20
+                        }
+                    },
+                    "2025년08월26일": {
+                        "gasoline": {
+                            "seoul": 1728.00, "busan": 1654.27, "daegu": 1633.05, "incheon": 1649.30,
+                            "gwangju": 1645.39, "daejeon": 1641.53, "ulsan": 1636.21, "sejong": 1649.78,
+                            "gyeonggi": 1660.12, "gangwon": 1679.16, "chungbuk": 1666.66, "chungnam": 1668.51,
+                            "jeonbuk": 1653.75, "jeonnam": 1668.22, "gyeongbuk": 1655.56, "gyeongnam": 1654.50,
+                            "jeju": 1708.34
+                        },
+                        "diesel": {
+                            "seoul": 1609.76, "busan": 1526.75, "daegu": 1497.45, "incheon": 1524.95,
+                            "gwangju": 1520.70, "daejeon": 1522.52, "ulsan": 1517.31, "sejong": 1527.45,
+                            "gyeonggi": 1526.95, "gangwon": 1551.23, "chungbuk": 1538.87, "chungnam": 1537.84,
+                            "jeonbuk": 1525.65, "jeonnam": 1539.41, "gyeongbuk": 1521.51, "gyeongnam": 1525.18,
+                            "jeju": 1584.20
+                        }
+                    }
+                },
+                forecast: {
+                    "seoul": {
+                        "gasoline": { "day1": 1720.28, "day2": 1722.58, "day3": 1730.40 },
+                        "diesel": { "day1": 1603.26, "day2": 1605.40, "day3": 1612.15 }
+                    }
+                }
+            };
+            
+            // 지역 변수에도 할당 (중복 보장)
+            chatbotData = window.chatbotData;
+            
+            console.log('✅ 챗봇 데이터 로드 완료');
+            console.log('📊 데이터 확인:', {
+                historicalDates: Object.keys(window.chatbotData.historical),
+                forecastRegions: Object.keys(window.chatbotData.forecast)
+            });
+        }
+
+        // 챗봇 토글 함수
+        function toggleChatbot() {
+            const chatWindow = document.getElementById('chatbot-window');
+            const chatButton = document.getElementById('chatbot-toggle');
+            
+            if (!chatWindow || !chatButton) {
+                console.error('❌ 챗봇 요소를 찾을 수 없습니다');
+                return;
+            }
+            
+            if (chatWindow.classList.contains('hidden')) {
+                chatWindow.classList.remove('hidden');
+                chatButton.style.transform = 'scale(0.9)';
+                console.log('🤖 챗봇 열림');
+            } else {
+                chatWindow.classList.add('hidden');
+                chatButton.style.transform = 'scale(1)';
+                console.log('🤖 챗봇 닫힘');
+            }
+        }
+
+        // 챗봇 닫기 함수
+        function closeChatbot() {
+            document.getElementById('chatbot-window').classList.add('hidden');
+            document.getElementById('chatbot-toggle').style.transform = 'scale(1)';
+        }
+
+        // 메시지 전송 함수 - 완전 개선된 버전
+        function sendMessage() {
+            console.log('🚀 sendMessage 함수 호출됨');
+            
+            const input = document.getElementById('chatbot-input');
+            if (!input) {
+                console.error('❌ 입력 필드를 찾을 수 없습니다');
+                return;
+            }
+            
+            const message = input.value.trim();
+            console.log('📝 입력된 메시지:', message);
+            
+            if (message === '') {
+                console.log('⚠️ 빈 메시지이므로 전송하지 않습니다');
+                return;
+            }
+            
+            // 사용자 메시지 추가
+            addChatMessage(message, 'user');
+            
+            // 입력 필드 초기화
+            input.value = '';
+            
+            // 봇 응답 처리
+            setTimeout(() => {
+                const response = processChatMessage(message);
+                addChatMessage(response, 'bot');
+            }, 300);
+        }
+
+        // 채팅 메시지 추가 함수
+        function addChatMessage(message, type) {
+            const messagesContainer = document.getElementById('chatbot-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `${type}-message mb-3`;
+            
+            if (type === 'user') {
+                messageDiv.innerHTML = `
+                    <div class="flex justify-end">
+                        <div class="bg-blue-600 text-white rounded-lg p-3 text-sm max-w-xs">
+                            ${message}
+                        </div>
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="bg-gray-100 rounded-lg p-3 text-sm">
+                        ${message}
+                    </div>
+                `;
+            }
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // 메시지 처리 함수 - 완전히 안정적인 버전
+        function processChatMessage(message) {
+            console.log(`🤖 메시지 처리: "${message}"`);
+            
+            // 데이터 존재 확인 (window.chatbotData와 chatbotData 둘 다 확인)
+            const data = window.chatbotData || chatbotData;
+            if (!data || !data.historical) {
+                console.error('❌ 챗봇 데이터가 없습니다');
+                return '죄송합니다. 유가 데이터를 로드하는 중입니다. 잠시 후 다시 시도해주세요.';
+            }
+            
+            console.log('✅ 챗봇 데이터 확인됨');
+
+            // 메시지 파싱 및 응답 생성
+            return generateChatResponse(message, data);
+        }
+
+        // 챗봇 응답 생성 함수 - 완전히 안정적인 버전
+        function generateChatResponse(message, data) {
+            const msg = message.toLowerCase();
+            
+            // 데이터 파라미터가 없으면 전역 변수 사용
+            if (!data) {
+                data = window.chatbotData || chatbotData;
+            }
+            
+            // 지역 매핑
+            const regionMap = {
+                '서울': 'seoul', '부산': 'busan', '대구': 'daegu', '인천': 'incheon',
+                '광주': 'gwangju', '대전': 'daejeon', '울산': 'ulsan', '세종': 'sejong',
+                '경기': 'gyeonggi', '강원': 'gangwon', '충북': 'chungbuk', '충남': 'chungnam',
+                '전북': 'jeonbuk', '전남': 'jeonnam', '경북': 'gyeongbuk', '경남': 'gyeongnam',
+                '제주': 'jeju'
+            };
+
+            // 날짜 매핑
+            const dateMap = {
+                '8월24일': '2025년08월24일',
+                '8월25일': '2025년08월25일', 
+                '8월26일': '2025년08월26일',
+                '24일': '2025년08월24일',
+                '25일': '2025년08월25일',
+                '26일': '2025년08월26일'
+            };
+
+            // 연료 타입 확인
+            let fuelType = null;
+            if (msg.includes('휘발유') || msg.includes('가솔린')) {
+                fuelType = 'gasoline';
+            } else if (msg.includes('경유') || msg.includes('디젤')) {
+                fuelType = 'diesel';
+            }
+
+            // 지역 확인
+            let region = null;
+            let regionKorean = null;
+            for (const [korean, english] of Object.entries(regionMap)) {
+                if (msg.includes(korean.toLowerCase())) {
+                    region = english;
+                    regionKorean = korean;
+                    break;
+                }
+            }
+
+            // 날짜 확인
+            let dateKey = null;
+            let dateKorean = null;
+            for (const [korean, key] of Object.entries(dateMap)) {
+                if (msg.includes(korean)) {
+                    dateKey = key;
+                    dateKorean = korean;
+                    break;
+                }
+            }
+
+            // 예측 가격 질문인지 확인
+            const isPrediction = msg.includes('예측') || msg.includes('전망');
+
+            // 응답 생성
+            if (fuelType && region && dateKey) {
+                // 특정 지역, 연료, 날짜 질문
+                if (data.historical[dateKey] && data.historical[dateKey][fuelType] && data.historical[dateKey][fuelType][region]) {
+                    const price = data.historical[dateKey][fuelType][region];
+                    const fuelName = fuelType === 'gasoline' ? '보통휘발유' : '자동차경유';
+                    return `📍 ${regionKorean} 지역의 ${dateKorean} ${fuelName} 실제 가격은 <strong>${price.toLocaleString()}원</strong>입니다.`;
+                } else {
+                    return `죄송합니다. ${regionKorean} 지역의 ${dateKorean} ${fuelType === 'gasoline' ? '보통휘발유' : '자동차경유'} 가격 정보를 찾을 수 없습니다.`;
+                }
+            } else if (isPrediction && region && fuelType) {
+                // 예측 가격 질문
+                if (data.forecast && data.forecast[region]) {
+                    const forecastData = data.forecast[region];
+                    const fuelName = fuelType === 'gasoline' ? '보통휘발유' : '자동차경유';
+                    
+                    let response = `📈 ${regionKorean} 지역 ${fuelName} 예측 가격:<br>`;
+                    if (forecastData['1일후'] && forecastData['1일후'][fuelType]) {
+                        response += `• 1일 후: <strong>${forecastData['1일후'][fuelType].toLocaleString()}원</strong><br>`;
+                    }
+                    if (forecastData['2일후'] && forecastData['2일후'][fuelType]) {
+                        response += `• 2일 후: <strong>${forecastData['2일후'][fuelType].toLocaleString()}원</strong><br>`;
+                    }
+                    return response;
+                } else {
+                    return `죄송합니다. ${regionKorean} 지역의 ${fuelType === 'gasoline' ? '보통휘발유' : '자동차경유'} 예측 정보를 찾을 수 없습니다.`;
+                }
+            } else if (fuelType && region) {
+                // 지역과 연료만 명시된 경우 - 최신 가격 제공
+                const latestDate = '2025년08월26일';
+                if (data.historical[latestDate] && data.historical[latestDate][fuelType] && data.historical[latestDate][fuelType][region]) {
+                    const price = data.historical[latestDate][fuelType][region];
+                    const fuelName = fuelType === 'gasoline' ? '보통휘발유' : '자동차경유';
+                    return `📍 ${regionKorean} 지역의 최신(8월26일) ${fuelName} 가격은 <strong>${price.toLocaleString()}원</strong>입니다.`;
+                }
+            }
+
+            // 기본 도움말 메시지
+            return `🤔 질문을 이해하지 못했습니다.<br><br>
+                <strong>질문 형식 예시:</strong><br>
+                • "서울 휘발유 8월25일 가격은?"<br>
+                • "울산 경유 예측 가격은?"<br>
+                • "부산 8월26일 실제 가격"<br><br>
+                <small>지역명, 유종(휘발유/경유), 날짜를 포함해 주세요.</small>`;
+        }
+
+        // 기존 initializeApp 함수에 챗봇 초기화 추가
+        const originalInitializeApp = window.initializeApp;
+        window.initializeApp = function() {
+            if (originalInitializeApp) {
+                originalInitializeApp();
+            }
+            // 챗봇 초기화를 지연시켜서 다른 데이터가 로드된 후 실행
+            setTimeout(() => {
+                initializeChatbot();
+            }, 1000);
+        };
     </script>
 </body>
 </html>
