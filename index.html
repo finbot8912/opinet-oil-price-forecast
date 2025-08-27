@@ -648,9 +648,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex items-center justify-between p-3 bg-purple-50 rounded-md">
+                        <div class="flex items-center justify-between p-3 bg-purple-50 rounded-md cursor-pointer hover:bg-purple-100 transition-colors duration-200"
+                             id="day3-card" onclick="toggleActualPrice('day3')">
                             <span class="text-sm font-medium text-purple-900">3일 후</span>
-                            <span class="text-lg font-semibold text-purple-900 day3-price">-</span>
+                            <div class="text-right">
+                                <span class="text-lg font-semibold text-purple-900 day3-price">-</span>
+                                <div class="text-sm text-green-600 font-medium day3-actual" style="display: none;">
+                                    실제: <span class="actual-price-value">-</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="flex items-center justify-between p-3 bg-pink-50 rounded-md">
                             <span class="text-sm font-medium text-pink-900">4일 후</span>
@@ -871,14 +877,30 @@
                         "jeonbuk": 1525.28, "jeonnam": 1550.88, "gyeongbuk": 1535.71, "gyeongnam": 1537.19,
                         "jeju": 1590.62
                     }
+                },
+                "2025년08월27일": {
+                    "gasoline": {
+                        "seoul": 1726.96, "busan": 1652.84, "daegu": 1632.24, "incheon": 1650.55,
+                        "gwangju": 1644.24, "daejeon": 1641.19, "ulsan": 1636.39, "sejong": 1649.39,
+                        "gyeonggi": 1659.84, "gangwon": 1679.10, "chungbuk": 1666.11, "chungnam": 1668.16,
+                        "jeonbuk": 1653.64, "jeonnam": 1667.61, "gyeongbuk": 1655.18, "gyeongnam": 1653.86,
+                        "jeju": 1707.13
+                    },
+                    "diesel": {
+                        "seoul": 1609.49, "busan": 1524.68, "daegu": 1497.02, "incheon": 1525.26,
+                        "gwangju": 1520.45, "daejeon": 1523.26, "ulsan": 1517.06, "sejong": 1527.06,
+                        "gyeonggi": 1526.61, "gangwon": 1551.40, "chungbuk": 1538.25, "chungnam": 1537.16,
+                        "jeonbuk": 1525.19, "jeonnam": 1539.07, "gyeongbuk": 1520.98, "gyeongnam": 1524.78,
+                        "jeju": 1583.03
+                    }
                 }
             };
-            console.log('✅ 오피넷 실제 가격 데이터 로드 완료 (8월 25일, 26일)');
+            console.log('✅ 오피넷 실제 가격 데이터 로드 완료 (8월 25일, 26일, 27일)');
         }
         
-        // 실제 가격 토글 함수 (1일 후, 2일 후 지원 + 정확도 계산)
+        // 실제 가격 토글 함수 (1일 후, 2일 후, 3일 후 지원 + 정확도 계산)
         function toggleActualPrice(day) {
-            const supportedDays = ['day1', 'day2'];
+            const supportedDays = ['day1', 'day2', 'day3'];
             if (!supportedDays.includes(day)) return;
             
             // 날짜별 설정
@@ -894,6 +916,12 @@
                     dateKey: '2025년08월26일',
                     dayLabel: '8월26일',
                     dayIndex: 1  // 예측 데이터에서 2일 후는 index 1
+                },
+                'day3': {
+                    selector: '.day3-actual',
+                    dateKey: '2025년08월27일',
+                    dayLabel: '8월27일',
+                    dayIndex: 2  // 예측 데이터에서 3일 후는 index 2
                 }
             };
             
@@ -948,6 +976,9 @@
             } else if (dayIndex === 1) {
                 // 2일 후
                 predictedPriceText = document.querySelector('.day2-price').textContent;
+            } else if (dayIndex === 2) {
+                // 3일 후
+                predictedPriceText = document.querySelector('.day3-price').textContent;
             } else {
                 console.log('⚠️ 지원하지 않는 dayIndex:', dayIndex);
                 return;
@@ -2947,8 +2978,8 @@
 
             // 날짜 매핑
             const dateMap = {
-                '8월24일': '2025년08월24일', '8월25일': '2025년08월25일', '8월26일': '2025년08월26일',
-                '24일': '2025년08월24일', '25일': '2025년08월25일', '26일': '2025년08월26일'
+                '8월24일': '2025년08월24일', '8월25일': '2025년08월25일', '8월26일': '2025년08월26일', '8월27일': '2025년08월27일',
+                '24일': '2025년08월24일', '25일': '2025년08월25일', '26일': '2025년08월26일', '27일': '2025년08월27일'
             };
 
             // 유가 데이터 (하드코딩)
@@ -2987,6 +3018,18 @@
                         "seoul": 1609.76, "busan": 1526.75, "daegu": 1497.45,
                         "ulsan": 1517.31, "incheon": 1524.95, "gwangju": 1520.70,
                         "daejeon": 1522.52, "sejong": 1527.45
+                    }
+                },
+                "2025년08월27일": {
+                    "gasoline": {
+                        "seoul": 1726.96, "busan": 1652.84, "daegu": 1632.24,
+                        "ulsan": 1636.39, "incheon": 1650.55, "gwangju": 1644.24,
+                        "daejeon": 1641.19, "sejong": 1649.39
+                    },
+                    "diesel": {
+                        "seoul": 1609.49, "busan": 1524.68, "daegu": 1497.02,
+                        "ulsan": 1517.06, "incheon": 1525.26, "gwangju": 1520.45,
+                        "daejeon": 1523.26, "sejong": 1527.06
                     }
                 }
             };
