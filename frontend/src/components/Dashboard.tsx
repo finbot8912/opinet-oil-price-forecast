@@ -49,26 +49,21 @@ const Dashboard: React.FC<DashboardProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
         {/* 시스템 정보 */}
         <div>
-          <h2 className="text-lg font-semibold mb-3" style={{ fontSize: 'calc(1.125rem * 1.2)', fontWeight: '700' }}>활성 지역</h2>
+          <h2 className="text-lg font-semibold mb-3" style={{ fontSize: 'calc(1.125rem * 1.2)', fontWeight: '700' }}>활성 지역 {metadata.total_regions}개</h2>
           <div className="space-y-2">
-            <div className="flex justify-between">
-              <span className="text-blue-100">예측 지역:</span>
-              <span className="font-medium">{metadata.total_regions}개</span>
+            <div className="text-2xl font-bold">
+              {metadata.total_regions}개
             </div>
-            <div className="flex justify-between">
-              <span className="text-blue-100">예측 기간:</span>
-              <span className="font-medium">{metadata.forecast_horizon_days}일</span>
+            <div className="text-blue-100 text-sm">
+              📍 전국 예측 지역수
             </div>
-            <div className="flex justify-between">
-              <span className="text-blue-100">마지막 갱신:</span>
-              <span className="font-medium">
-                {new Date(metadata.generated_at).toLocaleString('ko-KR', {
-                  month: 'short',
-                  day: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit'
-                })}
-              </span>
+            <div className="text-blue-200 text-xs mt-2">
+              갱신: {new Date(metadata.generated_at).toLocaleString('ko-KR', {
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+              })}
             </div>
           </div>
         </div>
